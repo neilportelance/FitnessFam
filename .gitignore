@@ -1,0 +1,9 @@
+config.json
+alltime.json
+anchor.json
+cache.json
+archive/
+reports/
+__pycache__/
+*.pyc
+*.html
