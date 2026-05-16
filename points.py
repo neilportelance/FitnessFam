@@ -59,6 +59,22 @@ SPEED_LIMITS = {
     "Nordic Ski / XC Ski": (2.0, 30.0),
 }
 
+MEMBERS_FILE = Path("members.json")
+
+def load_members():
+    if not MEMBERS_FILE.exists():
+        return set(), set()
+    data = json.load(open(MEMBERS_FILE))
+    excluded, known = set(), set()
+    for m in data["members"]:
+        key = f"{m['firstname']} {m['lastname']}"
+        known.add(key)
+        if not m["participating"]:
+            excluded.add(key)
+    return excluded, known
+
+EXCLUDED_ATHLETES, KNOWN_ATHLETES = load_members()
+
 ACTIVITY_LABELS = {
     "Run": "Run", "TrailRun": "Run",
     "NordicSki": "Nordic Ski / XC Ski", "BackcountrySki": "Nordic Ski / XC Ski",
@@ -263,7 +279,14 @@ def calculate_activity(a):
 # ── Totals ────────────────────────────────────────────────────────────────────
 
 def calculate_totals(month_activities):
-    results = [calculate_activity(a) for a in month_activities]
+    filtered = []
+    for a in month_activities:
+        fn = a.get("athlete", {}).get("firstname", "")
+        ln = a.get("athlete", {}).get("lastname", "")
+        key = f"{fn} {ln}"
+        if key not in EXCLUDED_ATHLETES:
+            filtered.append(a)
+    results = [calculate_activity(a) for a in filtered]
 
     # Group by athlete
     totals = {}
