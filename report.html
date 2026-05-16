@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May 2026 — Lively Fitness Challenge</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#F3F4F6;padding:24px 16px;color:#111827}
+  .page-header{max-width:1280px;margin:0 auto 20px}
+  .page-header h1{font-size:24px;font-weight:700;margin-bottom:2px}
+  .page-header p{font-size:13px;color:#6B7280}
+  .columns{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:20px;max-width:1280px;margin:0 auto}
+  .col-header{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#6B7280;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #E5E7EB}
+  .col-header.lb{color:#2563EB;border-color:#BFDBFE}
+  .col-header.at{color:#7C3AED;border-color:#DDD6FE}
+
+  /* Points */
+  .pts-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+  .pts-meta{font-size:11px;color:#6B7280;margin-bottom:12px}
+  .pts-col-labels{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#9CA3AF;padding-bottom:6px;border-bottom:1px solid #E5E7EB;margin-bottom:4px}
+  .pts-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #F9FAFB}
+  .pts-row:last-child{border-bottom:none}
+  .pts-name{min-width:80px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:4px}
+  .pts-bar-wrap{flex:1;height:6px;background:#E5E7EB;border-radius:3px;overflow:hidden}
+  .pts-bar{height:100%;border-radius:3px}
+  .pts-val{min-width:32px;text-align:right;font-weight:700;font-size:13px}
+  .pts-pace{min-width:52px;text-align:right;font-size:12px;font-weight:500}
+  .goal-badge{font-size:10px;background:#DCFCE7;color:#166534;padding:1px 5px;border-radius:3px;font-weight:600}
+
+  /* Leaderboard */
+  .lb-section{background:#fff;border-radius:12px;padding:12px 12px 8px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+  .lb-act-title{font-size:13px;font-weight:600;color:#111827;padding:4px 6px;background:#F9FAFB;border-radius:5px;margin-bottom:6px}
+  .lb-sub{font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;margin:6px 0 4px 2px}
+  .lb-row{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;margin-bottom:3px}
+  .lb-medal{font-size:14px;flex-shrink:0}
+  .lb-entry{font-size:12px;font-weight:500;flex:1}
+  .rec-badge{font-size:9px;font-weight:600;background:#FEF3C7;color:#92400E;padding:1px 5px;border-radius:3px;margin-left:3px}
+
+  /* All time */
+  .section{background:#FAFAFE;border:1px solid #EDE9FE;border-radius:10px;padding:10px 12px 6px;margin-bottom:10px}
+  .section-title{font-size:13px;font-weight:600;color:#4C1D95;padding:4px 6px;background:#F5F3FF;border-radius:5px;margin-bottom:6px}
+  .at-row{display:flex;align-items:center;gap:6px;padding:5px 4px;border-bottom:1px solid #F3F4F6;font-size:11px}
+  .at-row:last-child{border-bottom:none}
+  .at-label{color:#7C3AED;font-weight:600;min-width:80px;font-size:10px}
+  .at-name{font-weight:600;color:#111827;flex:1}
+  .at-val{color:#374151;font-weight:500}
+  .at-month{font-size:9px;color:#9CA3AF;margin-left:4px;white-space:nowrap}
+
+  .footer{max-width:1280px;margin:16px auto 0;text-align:center;font-size:11px;color:#9CA3AF}
+  @media(max-width:800px){.columns{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1>🏆 May 2026</h1>
+  <p>Lively Fitness Challenge</p>
+</div>
+<div class="columns">
+
+  <div>
+    <div class="col-header">Points standings</div>
+    <div class="pts-card">
+      <div class="pts-meta">Goal: 80 pts &nbsp;·&nbsp; Expected today: 41.29 pts (day 16/31)</div>
+      <div class="pts-col-labels">
+        <div style="min-width:80px">Name</div>
+        <div style="flex:1"></div>
+        <div style="min-width:32px;text-align:right">Pts</div>
+        <div style="min-width:52px;text-align:right">Pace</div>
+      </div>
+      
+        <div class="pts-row">
+          <div class="pts-name">Amy</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:69%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">55.27</div>
+          <div class="pts-pace" style="color:#16A34A">+13.98</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Billy</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:35%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">27.93</div>
+          <div class="pts-pace" style="color:#EF4444">-13.36</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Connor</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:45%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">36.17</div>
+          <div class="pts-pace" style="color:#EF4444">-5.12</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">David</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:10%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">7.91</div>
+          <div class="pts-pace" style="color:#EF4444">-33.38</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Greg</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:1%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">1.13</div>
+          <div class="pts-pace" style="color:#EF4444">-40.16</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Hernando</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:73%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">58.65</div>
+          <div class="pts-pace" style="color:#16A34A">+17.36</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Ho</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:22%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">17.64</div>
+          <div class="pts-pace" style="color:#EF4444">-23.65</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Jennifer</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:39%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">31.32</div>
+          <div class="pts-pace" style="color:#EF4444">-9.97</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Kyle</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:56%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">44.77</div>
+          <div class="pts-pace" style="color:#16A34A">+3.48</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Lily</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:65%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">52.09</div>
+          <div class="pts-pace" style="color:#16A34A">+10.8</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Matt</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:23%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">18.52</div>
+          <div class="pts-pace" style="color:#EF4444">-22.77</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Melanie <span class="goal-badge">✓</span></div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:100%;background:#16A34A"></div></div>
+          <div class="pts-val" style="color:#16A34A">80.85</div>
+          <div class="pts-pace" style="color:#16A34A">✓ done</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Myles</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:92%;background:#F59E0B"></div></div>
+          <div class="pts-val" style="color:#F59E0B">73.81</div>
+          <div class="pts-pace" style="color:#16A34A">+32.52</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Neil</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:93%;background:#F59E0B"></div></div>
+          <div class="pts-val" style="color:#F59E0B">74.03</div>
+          <div class="pts-pace" style="color:#16A34A">+32.74</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Ruth</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:71%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">56.66</div>
+          <div class="pts-pace" style="color:#16A34A">+15.37</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Santiago</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:88%;background:#F59E0B"></div></div>
+          <div class="pts-val" style="color:#F59E0B">70.44</div>
+          <div class="pts-pace" style="color:#16A34A">+29.15</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Sasha</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:6%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">5.0</div>
+          <div class="pts-pace" style="color:#EF4444">-36.29</div>
+        </div>
+        <div class="pts-row">
+          <div class="pts-name">Scott</div>
+          <div class="pts-bar-wrap"><div class="pts-bar" style="width:73%;background:#EF4444"></div></div>
+          <div class="pts-val" style="color:#EF4444">58.23</div>
+          <div class="pts-pace" style="color:#16A34A">+16.94</div>
+        </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="col-header lb">Monthly top 3</div>
+    <div class="lb-section"><div class="lb-act-title">🏃 Run</div><div class="lb-sub">📏 Longest</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Santiago — 21.5 km — 2h 5m</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Hernando — 19.0 km — 2h 6m</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Melanie — 14.0 km — 1h 19m</span></div><div class="lb-sub">⚡ Fastest pace</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Billy — 4:11/km — 4.5 km</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Santiago — 5:24/km — 5.7 km</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Melanie — 5:32/km — 9.0 km</span></div></div><div class="lb-section"><div class="lb-act-title">🚴 Road Bike</div><div class="lb-sub">📏 Longest</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Ruth — 19.6 km — 1h 26m</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Amy — 15.6 km — 55m</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Kyle — 10.6 km — 35m</span></div><div class="lb-sub">⚡ Fastest pace</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">David — 2:39/km — 9.8 km</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Kyle — 3:08/km — 6.3 km</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Amy — 3:35/km — 15.6 km</span></div></div><div class="lb-section"><div class="lb-act-title">🏠 Indoor Bike / Spin</div><div class="lb-sub">📏 Longest</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Amy — 33.0 km — 1h 3m</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Ruth — 13.8 km — 34m</span></div><div class="lb-sub">⚡ Fastest pace</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Amy — 1:55/km — 33.0 km</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Ruth — 2:30/km — 13.8 km</span></div></div><div class="lb-section"><div class="lb-act-title">🏊 Swim</div><div class="lb-sub">📏 Longest</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Kyle — 4.7 km — 32m</span></div><div class="lb-sub">⚡ Fastest pace</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Kyle — 6:57/km — 4.7 km</span></div></div><div class="lb-section"><div class="lb-act-title">🚶 Walk / Hike</div><div class="lb-sub">📏 Longest</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Connor — 11.0 km — 3h 17m</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Neil — 8.5 km — 1h 46m</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Myles — 7.2 km — 1h 28m</span></div></div><div class="lb-section"><div class="lb-act-title">🔥 High Intensity</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Jennifer — 3 sessions (HIIT x2, Elliptical)</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Myles — 2 sessions (HIIT x2)</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Sasha — 1 session (HIIT)</span></div></div><div class="lb-section"><div class="lb-act-title">💪 Medium Intensity</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Amy & Ruth — 7 sessions (Gym x5, Pickleball x2)</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Neil & Santiago & Scott — 5 sessions (Gym x5)</span></div><div class="lb-row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="lb-medal">🥉</span><span class="lb-entry">Matt & Melanie & Jennifer — 3 sessions (Gym x3)</span></div></div><div class="lb-section"><div class="lb-act-title">🧘 Low Intensity</div><div class="lb-row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="lb-medal">🥇</span><span class="lb-entry">Matt — 2 sessions (Yoga x2)</span></div><div class="lb-row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="lb-medal">🥈</span><span class="lb-entry">Jennifer — 1 session (Yoga)</span></div></div>
+  </div>
+
+  <div>
+    <div class="col-header at">All time records</div>
+    <div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🏃 Run</div><div class="sub-label">📏 Longest</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Santiago — 21.5 km (2h 5m)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Hernando — 19.0 km (2h 6m)</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Melanie — 14.0 km (1h 19m)</span></div><div class="sub-label">⚡ Fastest pace</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Billy — 4:11/km (4.5 km)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Santiago — 5:24/km (5.7 km)</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Melanie — 5:32/km (9.0 km)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🚴 Road Bike</div><div class="sub-label">📏 Longest</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Ruth — 19.6 km (1h 26m)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Amy — 15.6 km (55m)</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Kyle — 10.6 km (35m)</span></div><div class="sub-label">⚡ Fastest pace</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">David — 2:39/km (9.8 km)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Kyle — 3:08/km (6.3 km)</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Amy — 3:35/km (15.6 km)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🏠 Indoor Bike / Spin</div><div class="sub-label">📏 Longest</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Amy — 33.0 km (1h 3m)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Ruth — 13.8 km (34m)</span></div><div class="sub-label">⚡ Fastest pace</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Amy — 1:55/km (33.0 km)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Ruth — 2:30/km (13.8 km)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🏊 Swim</div><div class="sub-label">📏 Longest</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Kyle — 4.7 km (32m)</span></div><div class="sub-label">⚡ Fastest pace</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Kyle — 6:57/km (4.7 km)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🚶 Walk / Hike</div><div class="sub-label">📏 Longest</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Connor — 11.0 km (3h 17m)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Melanie — 11.0 km</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Neil — 8.5 km (1h 46m)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🔥 High Intensity</div><div class="sub-label">🔢 Most sessions</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Myles — 2 sessions (HIIT x2)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Sasha — 1 session (HIIT)</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Jennifer — 1 session (HIIT)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">💪 Medium Intensity</div><div class="sub-label">🔢 Most sessions</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Amy — 6 sessions (Gym x5, Pickleball)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Scott — 5 sessions (Gym x5)</span></div><div class="row" style="background:#FFF3EE;border-left:3px solid #C2622D;color:#7C2D12"><span class="medal">🥉</span><span class="entry">Santiago — 5 sessions (Gym x5)</span></div></div><div class="section" style="margin-bottom:10px;padding:10px 12px 8px"><div class="section-title" style="background:#F0FDF4;color:#166534">🧘 Low Intensity</div><div class="sub-label">🔢 Most sessions</div><div class="row" style="background:#FFF8E7;border-left:3px solid #F59E0B;color:#92400E"><span class="medal">🥇</span><span class="entry">Matt — 2 sessions (Yoga x2)</span></div><div class="row" style="background:#F3F4F6;border-left:3px solid #9CA3AF;color:#374151"><span class="medal">🥈</span><span class="entry">Jennifer — 1 session (Yoga)</span></div></div>
+  </div>
+
+</div>
+<div class="footer">Generated May 16, 2026 at 12:36 PM</div>
+</body>
+</html>
