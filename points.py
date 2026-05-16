@@ -332,14 +332,14 @@ def build_points_html(totals, month_name):
               <td class="act-name-cell">{r["activity_name"]}</td>
               <td class="type-cell">{r["label"]}</td>
               <td class="detail-cell">{r["display"]}</td>
-              <td class="pts-cell">{r["points"]}</td>
+              <td class="pts-cell">{round(r["points"], 2)}</td>
               {flag_td}
             </tr>'''
 
         detail_html += f'''
         <div class="detail-section">
           <div class="detail-header">
-            {name} — <span class="total-pts">{data["points"]} pts</span>
+            {name} — <span class="total-pts">{round(data["points"], 2)} pts</span>
             {"<span class='has-flags'>⚠️ has items needing review</span>" if has_flags else ""}
           </div>
           <table class="detail-table">
