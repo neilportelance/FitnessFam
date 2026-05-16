@@ -38,6 +38,13 @@ jobs:
       - name: Run leaderboard
         run: python run.py
 
+      - name: Save updated refresh token
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          NEW_TOKEN=$(python -c "import json; print(json.load(open('config.json'))['refresh_token'])")
+          gh secret set STRAVA_REFRESH_TOKEN --body "$NEW_TOKEN"
+
       - name: Commit updated data files
         run: |
           git config user.email "actions@github.com"
