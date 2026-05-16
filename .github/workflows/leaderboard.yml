@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Write config.json from secrets
+      - name: Write config and anchor from secrets
         run: |
           echo '{
             "client_id": ${{ secrets.STRAVA_CLIENT_ID }},
@@ -29,6 +29,11 @@ jobs:
             "refresh_token": "${{ secrets.STRAVA_REFRESH_TOKEN }}",
             "club_id": ${{ secrets.STRAVA_CLUB_ID }}
           }' > config.json
+          echo '{
+            "index": ${{ secrets.STRAVA_ANCHOR_INDEX }},
+            "athlete": "anchor",
+            "name": "anchor"
+          }' > anchor.json
 
       - name: Restore cache from previous run
         uses: actions/cache@v4
@@ -40,10 +45,12 @@ jobs:
 
       - name: Debug files
         run: |
+          echo "=== working directory ==="
+          pwd
           echo "=== anchor.json ==="
           cat anchor.json || echo "NOT FOUND"
-          echo "=== directory listing ==="
-          ls -la
+          echo "=== all files ==="
+          find . -name "anchor.json"
 
       - name: Run leaderboard
         run: python run.py
