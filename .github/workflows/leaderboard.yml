@@ -39,6 +39,7 @@ jobs:
         run: python run.py
 
       - name: Save updated refresh token
+        continue-on-error: true
         run: |
           NEW_TOKEN=$(python -c "import json; print(json.load(open('config.json'))['refresh_token'])")
           gh secret set STRAVA_REFRESH_TOKEN --body "$NEW_TOKEN" --repo neilportelance/FitnessFam
