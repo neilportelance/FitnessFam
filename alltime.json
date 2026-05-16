@@ -1,0 +1,275 @@
+{
+  "Swim": {
+    "distance": [
+      {
+        "name": "Kyle",
+        "value": 4650.0,
+        "display": "4.7 km (32m)",
+        "month": "2026-05"
+      }
+    ],
+    "pace": [
+      {
+        "name": "Kyle",
+        "value": 418,
+        "display": "6:57/km (4.7 km)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Walk / Hike": {
+    "distance": [
+      {
+        "name": "Connor",
+        "value": 11002.0,
+        "display": "11.0 km (3h 17m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Melanie",
+        "value": 11000,
+        "display": "11.0 km",
+        "month": "2026-05"
+      },
+      {
+        "name": "Neil",
+        "value": 8544.9,
+        "display": "8.5 km (1h 46m)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Yoga / Low Intensity": {
+    "sessions": [
+      {
+        "name": "Matt",
+        "value": 2,
+        "display": "2 sessions",
+        "month": "2026-05"
+      },
+      {
+        "name": "Jennifer",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Gym / Medium Intensity": {
+    "sessions": [
+      {
+        "name": "Scott",
+        "value": 5,
+        "display": "5 sessions",
+        "month": "2026-05"
+      },
+      {
+        "name": "Santiago",
+        "value": 5,
+        "display": "5 sessions",
+        "month": "2026-05"
+      },
+      {
+        "name": "Amy",
+        "value": 5,
+        "display": "5 sessions",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Run": {
+    "distance": [
+      {
+        "name": "Santiago",
+        "value": 21505.2,
+        "display": "21.5 km (2h 5m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Hernando",
+        "value": 19007.5,
+        "display": "19.0 km (2h 6m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Melanie",
+        "value": 14004.8,
+        "display": "14.0 km (1h 19m)",
+        "month": "2026-05"
+      }
+    ],
+    "pace": [
+      {
+        "name": "Billy",
+        "value": 300,
+        "display": "4:59/km (6.0 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Santiago",
+        "value": 325,
+        "display": "5:24/km (5.7 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Melanie",
+        "value": 332,
+        "display": "5:32/km (9.0 km)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Road Bike / Spin": {
+    "distance": [
+      {
+        "name": "Amy",
+        "value": 20181.8,
+        "display": "20.2 km (44m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Ruth",
+        "value": 13775.0,
+        "display": "13.8 km (34m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Kyle",
+        "value": 10617.6,
+        "display": "10.6 km (35m)",
+        "month": "2026-05"
+      }
+    ],
+    "pace": [
+      {
+        "name": "Amy",
+        "value": 132,
+        "display": "2:12/km (20.2 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Ruth",
+        "value": 150,
+        "display": "2:30/km (13.8 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Kyle",
+        "value": 200,
+        "display": "3:20/km (10.6 km)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Crossfit / HIIT / High Intensity": {
+    "sessions": [
+      {
+        "name": "Myles",
+        "value": 2,
+        "display": "2 sessions",
+        "month": "2026-05"
+      },
+      {
+        "name": "Sasha",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-05"
+      },
+      {
+        "name": "Jennifer",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Pickleball / Medium Intensity": {
+    "sessions": [
+      {
+        "name": "Ruth",
+        "value": 4,
+        "display": "4 sessions",
+        "month": "2026-05"
+      },
+      {
+        "name": "Amy",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Road Bike": {
+    "distance": [
+      {
+        "name": "Ruth",
+        "value": 19594.9,
+        "display": "19.6 km (1h 26m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Amy",
+        "value": 15553.3,
+        "display": "15.6 km (55m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Kyle",
+        "value": 10617.6,
+        "display": "10.6 km (35m)",
+        "month": "2026-05"
+      }
+    ],
+    "pace": [
+      {
+        "name": "David",
+        "value": 159,
+        "display": "2:39/km (9.8 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Kyle",
+        "value": 188,
+        "display": "3:08/km (6.3 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Amy",
+        "value": 215,
+        "display": "3:35/km (15.6 km)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Indoor Bike / Spin": {
+    "distance": [
+      {
+        "name": "Amy",
+        "value": 32950.3,
+        "display": "33.0 km (1h 3m)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Ruth",
+        "value": 13775.0,
+        "display": "13.8 km (34m)",
+        "month": "2026-05"
+      }
+    ],
+    "pace": [
+      {
+        "name": "Amy",
+        "value": 115,
+        "display": "1:55/km (33.0 km)",
+        "month": "2026-05"
+      },
+      {
+        "name": "Ruth",
+        "value": 150,
+        "display": "2:30/km (13.8 km)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Elliptical / High Intensity": {}
+}

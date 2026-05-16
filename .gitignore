@@ -1,6 +1,4 @@
 config.json
-alltime.json
-cache.json
 archive/
 reports/
 __pycache__/
