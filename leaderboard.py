@@ -10,6 +10,24 @@ ARCHIVE_DIR  = Path("archive")
 
 MIN_SESSION_SECONDS = 30 * 60
 
+MEMBERS_FILE = Path("members.json")
+
+def load_members():
+    """Load members.json and return (excluded_set, known_set) of 'firstname lastname' keys."""
+    if not MEMBERS_FILE.exists():
+        return set(), set()
+    data = json.load(open(MEMBERS_FILE))
+    excluded = set()
+    known = set()
+    for m in data["members"]:
+        key = f"{m['firstname']} {m['lastname']}"
+        known.add(key)
+        if not m["participating"]:
+            excluded.add(key)
+    return excluded, known
+
+EXCLUDED_ATHLETES, KNOWN_ATHLETES = load_members()
+
 # ── Activity Categories ───────────────────────────────────────────────────────
 
 ACTIVITY_LABELS = {
@@ -722,6 +740,24 @@ def main():
         print(f"  {len(activities) - anchor_count} activities this month\n")
 
     month_activities = activities[anchor_count:]
+
+    # Filter excluded and flag unknown members
+    unknown_members = set()
+    filtered = []
+    for a in month_activities:
+        fn = a.get("athlete", {}).get("firstname", "")
+        ln = a.get("athlete", {}).get("lastname", "")
+        key = f"{fn} {ln}"
+        if key in EXCLUDED_ATHLETES:
+            continue
+        if KNOWN_ATHLETES and key not in KNOWN_ATHLETES:
+            unknown_members.add(key)
+        filtered.append(a)
+    month_activities = filtered
+
+    if unknown_members:
+        print(f"⚠️  Unknown members (not in members.json): {', '.join(sorted(unknown_members))}")
+
     if not month_activities:
         print("No activities found before anchor. Try running --set-anchor to reset.")
         return

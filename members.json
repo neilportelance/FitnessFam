@@ -1,0 +1,23 @@
+{
+  "members": [
+    {"id": 1, "firstname": "Neil", "lastname": "P.", "participating": true},
+    {"id": 2, "firstname": "Amy", "lastname": "E.", "participating": true},
+    {"id": 3, "firstname": "Billy", "lastname": "M.", "participating": true},
+    {"id": 4, "firstname": "Melanie", "lastname": "M.", "participating": true},
+    {"id": 5, "firstname": "Scott", "lastname": "W.", "participating": true},
+    {"id": 6, "firstname": "Lily", "lastname": "B.", "participating": true},
+    {"id": 7, "firstname": "Jennifer", "lastname": "S.", "participating": true},
+    {"id": 8, "firstname": "Santiago", "lastname": "J.", "participating": true},
+    {"id": 9, "firstname": "Myles", "lastname": "T.", "participating": true},
+    {"id": 10, "firstname": "Ruth", "lastname": "P.", "participating": true},
+    {"id": 11, "firstname": "Hernando", "lastname": "J.", "participating": true},
+    {"id": 12, "firstname": "Ho", "lastname": "B.", "participating": false},
+    {"id": 13, "firstname": "Allison", "lastname": "K.", "participating": false},
+    {"id": 14, "firstname": "Kyle", "lastname": "P.", "participating": true},
+    {"id": 15, "firstname": "Connor", "lastname": "M.", "participating": true},
+    {"id": 16, "firstname": "Greg", "lastname": "M.", "participating": false},
+    {"id": 17, "firstname": "Matt", "lastname": "M.", "participating": true},
+    {"id": 18, "firstname": "David", "lastname": "L.", "participating": true},
+    {"id": 19, "firstname": "Sasha", "lastname": "K.", "participating": true}
+  ]
+}
