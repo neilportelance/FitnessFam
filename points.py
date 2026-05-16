@@ -54,7 +54,7 @@ SPEED_LIMITS = {
     "Road Bike":         (5.0, 60.0),
     "Indoor Bike / Spin": (5.0, 60.0),
     "Mountain Bike":     (3.0, 40.0),
-    "Swim":              (0.5, 5.0),
+    "Swim":              (0.5, 12.0),
     "Paddle / Kayak / SUP": (1.0, 15.0),
     "Nordic Ski / XC Ski": (2.0, 30.0),
 }
@@ -165,6 +165,11 @@ def calculate_activity(a):
     distance_m = a.get("distance", 0)
     moving_time_s = a.get("moving_time", 0)
     activity_name = a.get("name", "")
+
+    # Name-based overrides — e.g. hockey logged as ice skating
+    activity_name_lower = activity_name.lower()
+    if label == "Yoga / Low Intensity" and any(kw in activity_name_lower for kw in ["puck", "hockey", "shinny"]):
+        label = "Team Sports / Medium Intensity"
 
     result = {
         "name": name,
