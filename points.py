@@ -382,7 +382,7 @@ def main():
     print("📊 Strava Points Calculator")
     print("─" * 30)
 
-    from leaderboard import load_cache, find_anchor_idx
+    from leaderboard import load_cache, find_anchor_idx, load_anchor as lb_load_anchor
 
     activities = load_cache()
     if not activities:
@@ -390,16 +390,16 @@ def main():
         return
     print(f"✓ Loaded {len(activities)} activities from cache\n")
 
-    anchor = load_anchor()
+    anchor = lb_load_anchor()
     if anchor is None:
         print("No anchor set — run leaderboard.py --set-anchor first.")
         return
 
-    anchor_idx = find_anchor_idx(activities, anchor)
-    print(f"⚓ Anchor: #{anchor_idx} — {anchor['athlete']} — {anchor['name']}")
-    print(f"  {anchor_idx} activities this month\n")
+    anchor_count = find_anchor_idx(activities, anchor)
+    print(f"⚓ Anchor: {anchor_count} activities at month start")
+    print(f"  {len(activities) - anchor_count} activities this month\n")
 
-    month_activities = activities[:anchor_idx]
+    month_activities = activities[anchor_count:]
     if not month_activities:
         print("No activities found before anchor.")
         return

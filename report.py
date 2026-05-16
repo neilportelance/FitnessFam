@@ -667,10 +667,10 @@ def main():
         print("No anchor set — run: python run.py --set-anchor")
         return
 
-    anchor_idx = find_anchor_idx(activities, anchor)
-    month_activities = activities[:anchor_idx]
+    anchor_count = find_anchor_idx(activities, anchor)
+    month_activities = activities[anchor_count:]
     if not month_activities:
-        print("No activities found before anchor.")
+        print("No activities found after anchor.")
         return
 
     month_key = datetime.now().strftime("%Y-%m")
