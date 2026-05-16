@@ -164,7 +164,9 @@ def fetch_all_activities(token, club_id):
 
 # ── Cache ─────────────────────────────────────────────────────────────────────
 
-CACHE_FILE = Path("cache.json")
+CACHE_FILE  = Path("cache.json")   # legacy, newest-first
+CACHE2_FILE = Path("cache2.json")  # new, oldest-first
+ANCHOR2_FILE = Path("anchor2.json")
 
 def activity_fingerprint(a):
     """Unique key for an activity — used for deduplication."""
@@ -177,81 +179,78 @@ def activity_fingerprint(a):
     )
 
 def load_cache():
+    """Load cache2 (oldest-first). Migrates from cache.json if needed."""
+    if CACHE2_FILE.exists():
+        with open(CACHE2_FILE) as f:
+            return json.load(f)
+    # Migrate from old cache.json
     if CACHE_FILE.exists():
         with open(CACHE_FILE) as f:
-            return json.load(f)
+            old = json.load(f)
+        # old cache is newest-first, reverse it
+        migrated = list(reversed(old))
+        with open(CACHE2_FILE, "w") as f:
+            json.dump(migrated, f)
+        print(f"  Migrated {len(migrated)} activities from cache.json → cache2.json (oldest-first)")
+        return migrated
     return []
 
 def merge_and_save_cache(fresh_activities):
-    """Merge fresh API activities into cache, deduplicate, preserve older entries."""
+    """
+    Merge fresh API activities (newest-first) into cache2 (oldest-first).
+    New activities are appended to the END of cache2.
+    """
     cached = load_cache()
     existing_fps = {activity_fingerprint(a) for a in cached}
+    # fresh_activities is newest-first from API; new ones not yet in cache
     new_entries = [a for a in fresh_activities if activity_fingerprint(a) not in existing_fps]
-    # Fresh activities go first (most recent), then older cached ones not in fresh feed
-    fresh_fps = {activity_fingerprint(a) for a in fresh_activities}
-    old_only = [a for a in cached if activity_fingerprint(a) not in fresh_fps]
-    merged = fresh_activities + old_only
-    with open(CACHE_FILE, "w") as f:
+    # Append new entries oldest-first (reverse the new ones before appending)
+    merged = cached + list(reversed(new_entries))
+    with open(CACHE2_FILE, "w") as f:
         json.dump(merged, f)
-    print(f"  Cache: {len(fresh_activities)} from API + {len(old_only)} preserved = {len(merged)} total ({len(new_entries)} new)")
+    print(f"  Cache: {len(cached)} existing + {len(new_entries)} new = {len(merged)} total")
     return merged
 
-
+# ── Anchor ────────────────────────────────────────────────────────────────────
 
 def load_anchor():
+    """Load anchor2 (count-based) or fall back to legacy anchor.json."""
+    if ANCHOR2_FILE.exists():
+        with open(ANCHOR2_FILE) as f:
+            return json.load(f)
     if ANCHOR_FILE.exists():
         with open(ANCHOR_FILE) as f:
-            data = json.load(f)
-            # Support both old index-based and new fingerprint-based anchors
-            return data
+            return json.load(f)
     return None
 
 def find_anchor_idx(activities, anchor):
-    """Find the index of the anchor activity in the current activities list."""
+    """
+    For anchor2: anchor_count = number of activities at start of month.
+    Month activities = everything FROM anchor_count onwards (newest end of cache).
+    For legacy anchor: use fingerprint or index.
+    """
+    if "anchor_count" in anchor:
+        return anchor["anchor_count"]
+    # Legacy fingerprint
     if "fingerprint" in anchor:
         fp = tuple(anchor["fingerprint"])
         for i, a in enumerate(activities):
             if activity_fingerprint(a) == fp:
                 return i
-    # Fallback to old index-based anchor
     return anchor.get("index", 0)
 
 def save_anchor(anchor):
-    with open(ANCHOR_FILE, "w") as f:
+    with open(ANCHOR2_FILE, "w") as f:
         json.dump(anchor, f, indent=4)
 
 def set_anchor(activities):
-    print("\nAll activities (most recent first):")
-    print(f"{'#':<5} {'Athlete':<20} {'Type':<25} {'Name':<30} {'Value'}")
-    print("─" * 90)
-    for i, a in enumerate(activities):
-        name  = f"{a['athlete']['firstname']} {a['athlete']['lastname']}"
-        label = get_label(a.get("sport_type", "Unknown"))
-        dist  = a.get("distance", 0)
-        time  = a.get("moving_time", 0)
-        val   = fmt_dist(dist) if dist > 0 else fmt_time(time)
-        print(f"{i:<5} {name:<20} {label:<25} {a.get('name',''):<30} {val}")
+    """Set anchor as current cache size — everything after this is the new month."""
+    anchor_count = len(activities)
+    anchor = {"anchor_count": anchor_count}
+    save_anchor(anchor)
+    print(f"\n✓ Anchor set — {anchor_count} activities in cache. New month starts here.")
+    return anchor_count
 
-    print("\nEnter the number of the FIRST activity from this month:")
-    while True:
-        try:
-            idx = int(input("> ").strip())
-            if 0 <= idx < len(activities):
-                a = activities[idx]
-                anchor = {
-                    "index": idx,
-                    "fingerprint": list(activity_fingerprint(a)),
-                    "athlete": f"{a['athlete']['firstname']} {a['athlete']['lastname']}",
-                    "sport": a.get("sport_type"),
-                    "name": a.get("name")
-                }
-                save_anchor(anchor)
-                print(f"\n✓ Anchor set to #{idx}: {anchor['athlete']} — {anchor['sport']} — {anchor['name']}")
-                return idx
-            else:
-                print(f"Enter a number between 0 and {len(activities)-1}")
-        except ValueError:
-            print("Please enter a valid number.")
 
 # ── Formatting ────────────────────────────────────────────────────────────────
 
@@ -712,18 +711,17 @@ def main():
     # ── Normal run ──
     anchor = load_anchor()
     if anchor is None:
-        import sys
         if not sys.stdin.isatty():
-            print("No anchor set and running non-interactively — please set anchor locally and push anchor.json to the repo.")
+            print("No anchor set and running non-interactively — run: python run.py --set-anchor locally first.")
             return
-        print("No anchor set. Running anchor setup...\n")
-        anchor_idx = set_anchor(activities)
+        print("No anchor set. Setting anchor now...\n")
+        anchor_count = set_anchor(activities)
     else:
-        anchor_idx = find_anchor_idx(activities, anchor)
-        print(f"⚓ Anchor: #{anchor_idx} — {anchor['athlete']} — {anchor['name']}")
-        print(f"  {anchor_idx} activities this month\n")
+        anchor_count = find_anchor_idx(activities, anchor)
+        print(f"⚓ Anchor: {anchor_count} activities at month start")
+        print(f"  {len(activities) - anchor_count} activities this month\n")
 
-    month_activities = activities[:anchor_idx]
+    month_activities = activities[anchor_count:]
     if not month_activities:
         print("No activities found before anchor. Try running --set-anchor to reset.")
         return

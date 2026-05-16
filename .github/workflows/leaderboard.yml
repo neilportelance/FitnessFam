@@ -2,8 +2,8 @@ name: Generate Leaderboard
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # runs daily at 6am UTC
-  workflow_dispatch:       # allows manual trigger from GitHub UI
+    - cron: '0 6 * * *'
+  workflow_dispatch:
 
 jobs:
   generate:
@@ -21,41 +21,21 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Write config and anchor from secrets
+      - name: Write config.json from secrets
         run: |
-          echo '{
+          cat > config.json << CONFIGEOF
+          {
             "client_id": ${{ secrets.STRAVA_CLIENT_ID }},
             "client_secret": "${{ secrets.STRAVA_CLIENT_SECRET }}",
             "refresh_token": "${{ secrets.STRAVA_REFRESH_TOKEN }}",
             "club_id": ${{ secrets.STRAVA_CLUB_ID }}
-          }' > config.json
-          echo '{
-            "index": ${{ secrets.STRAVA_ANCHOR_INDEX }},
-            "athlete": "anchor",
-            "name": "anchor"
-          }' > anchor.json
-
-      - name: Restore cache from previous run
-        uses: actions/cache@v4
-        with:
-          path: cache.json
-          key: strava-cache-${{ github.run_id }}
-          restore-keys: |
-            strava-cache-
-
-      - name: Debug files
-        run: |
-          echo "=== working directory ==="
-          pwd
-          echo "=== anchor.json ==="
-          cat anchor.json || echo "NOT FOUND"
-          echo "=== all files ==="
-          find . -name "anchor.json"
+          }
+          CONFIGEOF
 
       - name: Run leaderboard
         run: python run.py
 
-      - name: Save updated refresh token back to secrets
+      - name: Save updated refresh token
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -66,7 +46,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add alltime.json anchor.json || true
+          git add cache2.json anchor2.json alltime.json || true
           git diff --staged --quiet || git commit -m "Update leaderboard data [skip ci]"
           git push || true
 
