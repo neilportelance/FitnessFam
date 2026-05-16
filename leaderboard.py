@@ -712,6 +712,10 @@ def main():
     # ── Normal run ──
     anchor = load_anchor()
     if anchor is None:
+        import sys
+        if not sys.stdin.isatty():
+            print("No anchor set and running non-interactively — please set anchor locally and push anchor.json to the repo.")
+            return
         print("No anchor set. Running anchor setup...\n")
         anchor_idx = set_anchor(activities)
     else:
