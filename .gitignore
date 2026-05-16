@@ -3,3 +3,4 @@ archive/
 reports/
 __pycache__/
 *.pyc
+backup-*/

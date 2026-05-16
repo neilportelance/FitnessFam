@@ -32,7 +32,30 @@ TIME_RATES = {
     "Yoga / Low Intensity":             2.5,
 }
 
-RUN_MAX_PACE_SEC_PER_KM = 9 * 60  # 9:00/km — slower than this → flag as walk
+# Max distance per activity type (meters) — flag if exceeded
+MAX_DISTANCE = {
+    "Run":               35000,
+    "Walk / Hike":       10000,
+    "Paddle / Kayak / SUP": 30000,
+    "Road Bike":         150000,
+    "Indoor Bike / Spin": 100000,
+    "Mountain Bike":     80000,
+    "Swim":              5000,
+    "Nordic Ski / XC Ski": 50000,
+    "Downhill Ski":      80000,
+}
+
+# Speed limits in km/h (min, max) — flag if outside range
+SPEED_LIMITS = {
+    "Walk / Hike":       (1.0, 8.0),
+    "Run":               (4.0, 20.0),
+    "Road Bike":         (5.0, 60.0),
+    "Indoor Bike / Spin": (5.0, 60.0),
+    "Mountain Bike":     (3.0, 40.0),
+    "Swim":              (0.5, 5.0),
+    "Paddle / Kayak / SUP": (1.0, 15.0),
+    "Nordic Ski / XC Ski": (2.0, 30.0),
+}
 
 ACTIVITY_LABELS = {
     "Run": "Run", "TrailRun": "Run",
@@ -175,34 +198,51 @@ def calculate_activity(a):
             pace = moving_time_s / (distance_m / 1000)
             if pace > RUN_MAX_PACE_SEC_PER_KM:
                 # Convert to walk points
-                walk_pts = round((distance_m / 1000) * DISTANCE_RATES["Walk / Hike"], 2)
+                walk_pts = (distance_m / 1000) * DISTANCE_RATES["Walk / Hike"]
                 result["points"] = walk_pts
-                result["display"] = f"{distance_m/1000:.1f} km @ {fmt_pace(distance_m, moving_time_s)} → counted as walk"
+                result["display"] = f"{distance_m/1000:.2f} km @ {fmt_pace(distance_m, moving_time_s)} → counted as walk"
                 result["flag"] = True
-                result["flag_reason"] = f"Pace {fmt_pace(distance_m, moving_time_s)} > 9:00/km — converted to walk points ({walk_pts} pts)"
+                result["flag_reason"] = f"Pace {fmt_pace(distance_m, moving_time_s)} > 9:00/km — converted to walk points ({walk_pts:.2f} pts)"
                 result["review"] = True
                 return result
 
         # Downhill ski: 2/3 of distance
         if label == "Downhill Ski":
             effective_km = (distance_m / 1000) * (2/3)
-            pts = round(effective_km * DISTANCE_RATES[label], 2)
+            pts = effective_km * DISTANCE_RATES[label]
             result["points"] = pts
-            result["display"] = f"{distance_m/1000:.1f} km → {effective_km:.1f} km effective (2/3 rule) → {pts} pts"
+            result["display"] = f"{distance_m/1000:.2f} km → {effective_km:.2f} km effective (2/3 rule) → {pts:.2f} pts"
             return result
 
         # Normal distance activity
-        pts = round((distance_m / 1000) * DISTANCE_RATES[label], 2)
+        pts = (distance_m / 1000) * DISTANCE_RATES[label]
         result["points"] = pts
         pace_str = f" @ {fmt_pace(distance_m, moving_time_s)}" if moving_time_s > 0 and label == "Run" else ""
-        result["display"] = f"{distance_m/1000:.1f} km{pace_str} → {pts} pts"
+        result["display"] = f"{distance_m/1000:.2f} km{pace_str} → {pts:.2f} pts"
+
+        # Sanity checks — flag but still count
+        flags = []
+        if label in MAX_DISTANCE and distance_m > MAX_DISTANCE[label]:
+            flags.append(f"unusually long ({distance_m/1000:.1f} km) — verify activity")
+        if label in SPEED_LIMITS and moving_time_s > 0:
+            speed_kmh = (distance_m / 1000) / (moving_time_s / 3600)
+            min_speed, max_speed = SPEED_LIMITS[label]
+            if speed_kmh < min_speed:
+                flags.append(f"very slow pace ({speed_kmh:.1f} km/h) — possible GPS error or vehicle")
+            elif speed_kmh > max_speed:
+                flags.append(f"very fast pace ({speed_kmh:.1f} km/h) — verify activity")
+        if flags:
+            result["flag"] = True
+            result["flag_reason"] = "; ".join(flags)
+            result["review"] = True
+
         return result
 
     # ── Time-based ──
     if label in TIME_RATES:
-        pts = round((moving_time_s / 3600) * TIME_RATES[label], 2)
+        pts = (moving_time_s / 3600) * TIME_RATES[label]
         result["points"] = pts
-        result["display"] = f"{fmt_time(moving_time_s)} @ {TIME_RATES[label]} pts/hr → {pts} pts"
+        result["display"] = f"{fmt_time(moving_time_s)} @ {TIME_RATES[label]} pts/hr → {pts:.2f} pts"
         return result
 
     # Fallback — shouldn't hit this if ACTIVITY_LABELS is complete
@@ -222,7 +262,7 @@ def calculate_totals(month_activities):
         name = r["name"]
         if name not in totals:
             totals[name] = {"points": 0.0, "activities": []}
-        totals[name]["points"] = round(totals[name]["points"] + r["points"], 2)
+        totals[name]["points"] = totals[name]["points"] + r["points"]
         totals[name]["activities"].append(r)
 
     return totals, results
@@ -241,7 +281,7 @@ def build_points_html(totals, month_name):
     # Athlete summary rows
     summary_rows = ""
     for name, data in sorted_athletes:
-        pts = data["points"]
+        pts = round(data["points"], 2)
         pct = min(pts / GOAL * 100, 100)
         color = "#16A34A" if pts >= GOAL else "#F59E0B" if pts >= 60 else "#EF4444"
         badge = ' <span style="background:#DCFCE7;color:#166534;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">✓ Goal met</span>' if pts >= GOAL else ""
@@ -415,7 +455,7 @@ def main():
     print(f"{'Athlete':<20} {'Points':>8}  {'Pacing':>10}  {'Status'}")
     print("─" * 55)
     for name, data in sorted(totals.items(), key=lambda x: x[0]):
-        pts = data["points"]
+        pts = round(data["points"], 2)
         diff = round(pts - expected, 2)
         pace_str = "goal met" if pts >= 80 else (f"+{diff}" if diff >= 0 else str(diff))
         status = "✓ Goal met" if pts >= 80 else f"{round(80 - pts, 2)} pts to go"

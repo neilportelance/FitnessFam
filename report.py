@@ -44,7 +44,7 @@ def build_report_html(month_activities, month_name, alltime, broken_records, tot
     sorted_athletes = sorted(totals.items(), key=lambda x: x[0])
     points_rows = ""
     for name, data in sorted_athletes:
-        pts = data["points"]
+        pts = round(data["points"], 2)
         pct = min(pts / GOAL * 100, 100)
         color = "#16A34A" if pts >= GOAL else "#F59E0B" if pts >= 60 else "#EF4444"
         diff = round(pts - expected, 2)
@@ -266,7 +266,7 @@ def build_mobile_html(month_activities, month_name, alltime, broken_records, tot
     sorted_athletes = sorted(totals.items(), key=lambda x: x[0])
     points_rows = ""
     for name, data in sorted_athletes:
-        pts = data["points"]
+        pts = round(data["points"], 2)
         diff = round(pts - expected, 2)
         name_style = f'color:#2AB5A8;font-weight:700' if pts >= GOAL else 'color:#FFFFFF;font-weight:600'
         points_rows += f'<div class="pts-row"><div class="pts-name" style="{name_style}">{name}</div>{bar_html(pts)}<div class="pts-val" style="color:{val_color(pts)}">{pts}</div><div class="pts-pace" style="color:{pace_color(pts,diff)};font-weight:{pace_weight(pts)}">{pace_str(pts,diff)}</div></div>'
@@ -485,7 +485,7 @@ def build_mobile_light_html(month_activities, month_name, alltime, broken_record
     sorted_athletes = sorted(totals.items(), key=lambda x: x[0])
     points_rows = ""
     for name, data in sorted_athletes:
-        pts = data["points"]
+        pts = round(data["points"], 2)
         pct = min(pts / GOAL * 100, 100)
         diff = round(pts - expected, 2)
         name_style = f'color:#0D9488;font-weight:700' if pts >= GOAL else 'color:#111827;font-weight:600'
