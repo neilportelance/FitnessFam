@@ -166,9 +166,11 @@ def calculate_activity(a):
     moving_time_s = a.get("moving_time", 0)
     activity_name = a.get("name", "")
 
-    # Name-based overrides — e.g. hockey logged as ice skating
+    # Name-based overrides — e.g. hockey logged as ice skating, floor hockey logged as HIIT
     activity_name_lower = activity_name.lower()
     if label == "Yoga / Low Intensity" and any(kw in activity_name_lower for kw in ["puck", "hockey", "shinny"]):
+        label = "Team Sports / Medium Intensity"
+    if label == "Crossfit / HIIT / High Intensity" and "floor hockey" in activity_name_lower:
         label = "Team Sports / Medium Intensity"
 
     result = {
