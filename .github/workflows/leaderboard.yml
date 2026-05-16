@@ -53,6 +53,9 @@ jobs:
           git diff --staged --quiet || git commit -m "Update leaderboard data [skip ci]"
           git push || true
 
+      - name: Copy auth page to reports
+        run: cp auth.html reports/auth.html
+
       - name: Deploy reports to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
