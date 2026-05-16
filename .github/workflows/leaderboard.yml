@@ -34,6 +34,14 @@ jobs:
           }
           CONFIGEOF
 
+      - name: Restore activity cache
+        uses: actions/cache@v4
+        with:
+          path: cache2.json
+          key: strava-cache2-${{ github.run_id }}
+          restore-keys: |
+            strava-cache2-
+
       - name: Run leaderboard
         run: python run.py
 
@@ -49,7 +57,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add cache2.json anchor2.json alltime.json || true
+          git add alltime.json anchor2.json || true
           git diff --staged --quiet || git commit -m "Update leaderboard data [skip ci]"
           git push || true
 
