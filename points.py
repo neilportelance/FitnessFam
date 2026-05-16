@@ -315,6 +315,13 @@ def build_points_html(totals, month_name):
     detail_html = ""
     for name, data in sorted_athletes:
         has_flags = any(r["flag"] for r in data["activities"])
+        pending_pts = sum(r["points"] for r in data["activities"] if r["review"])
+        confirmed_pts = round(data["points"] - pending_pts, 2)
+        pending_pts = round(pending_pts, 2)
+        total_pts = round(data["points"], 2)
+
+        pending_str = f' &nbsp;·&nbsp; <span style="color:#92400E">⚠️ Pending: {pending_pts} pts</span> &nbsp;·&nbsp; <span style="color:#166534">✓ Confirmed: {confirmed_pts} pts</span>' if pending_pts > 0 else ""
+
         rows = ""
         for r in data["activities"]:
             flag_td = ""
@@ -339,7 +346,7 @@ def build_points_html(totals, month_name):
         detail_html += f'''
         <div class="detail-section">
           <div class="detail-header">
-            {name} — <span class="total-pts">{round(data["points"], 2)} pts</span>
+            {name} — <span class="total-pts">{total_pts} pts</span>{pending_str}
             {"<span class='has-flags'>⚠️ has items needing review</span>" if has_flags else ""}
           </div>
           <table class="detail-table">
