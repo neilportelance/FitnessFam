@@ -1,0 +1,60 @@
+name: Generate Leaderboard
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # runs daily at 6am UTC
+  workflow_dispatch:       # allows manual trigger from GitHub UI
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Write config.json from secrets
+        run: |
+          echo '{
+            "client_id": ${{ secrets.STRAVA_CLIENT_ID }},
+            "client_secret": "${{ secrets.STRAVA_CLIENT_SECRET }}",
+            "refresh_token": "${{ secrets.STRAVA_REFRESH_TOKEN }}",
+            "club_id": ${{ secrets.STRAVA_CLUB_ID }}
+          }' > config.json
+
+      - name: Restore cache from previous run
+        uses: actions/cache@v4
+        with:
+          path: |
+            cache.json
+            alltime.json
+            anchor.json
+            archive/
+          key: strava-data-${{ github.run_id }}
+          restore-keys: |
+            strava-data-
+
+      - name: Run leaderboard
+        run: python run.py
+
+      - name: Save updated refresh token back to secrets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_TOKEN=$(python -c "import json; print(json.load(open('config.json'))['refresh_token'])")
+          gh secret set STRAVA_REFRESH_TOKEN --body "$NEW_TOKEN"
+
+      - name: Deploy reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+          keep_files: false
