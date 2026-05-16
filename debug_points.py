@@ -1,7 +1,7 @@
 import json
 from points import calculate_activity
 
-ATHLETE = "Neil"  # Change this to check someone else
+ATHLETE = "Connor"  # Change this to check someone else
 
 acts = json.load(open('cache2.json'))
 anchor = json.load(open('anchor2.json'))['anchor_count']
