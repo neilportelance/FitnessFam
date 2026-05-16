@@ -59,12 +59,8 @@ SPEED_LIMITS = {
     "Nordic Ski / XC Ski": (2.0, 30.0),
 }
 
-# Athletes in the club but not participating in the challenge
-EXCLUDED_ATHLETES = {
-    "Ho", "Greg", "Allison", "Tara", "Jordan", "April", "Alyne", "Emilie"
-}
-
 ACTIVITY_LABELS = {
+    "Run": "Run", "TrailRun": "Run",
     "NordicSki": "Nordic Ski / XC Ski", "BackcountrySki": "Nordic Ski / XC Ski",
     "Walk": "Walk / Hike", "Hike": "Walk / Hike",
     "Kayaking": "Paddle / Kayak / SUP", "Canoeing": "Paddle / Kayak / SUP",
@@ -267,8 +263,7 @@ def calculate_activity(a):
 # ── Totals ────────────────────────────────────────────────────────────────────
 
 def calculate_totals(month_activities):
-    filtered = [a for a in month_activities if a.get("athlete", {}).get("firstname", "") not in EXCLUDED_ATHLETES]
-    results = [calculate_activity(a) for a in filtered]
+    results = [calculate_activity(a) for a in month_activities]
 
     # Group by athlete
     totals = {}
