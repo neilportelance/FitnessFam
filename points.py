@@ -32,6 +32,8 @@ TIME_RATES = {
     "Yoga / Low Intensity":             2.5,
 }
 
+RUN_MAX_PACE_SEC_PER_KM = 9 * 60  # 9:00/km — slower than this → flag as walk
+
 # Max distance per activity type (meters) — flag if exceeded
 MAX_DISTANCE = {
     "Run":               35000,
