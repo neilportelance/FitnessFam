@@ -38,6 +38,13 @@ jobs:
           restore-keys: |
             strava-cache-
 
+      - name: Debug files
+        run: |
+          echo "=== anchor.json ==="
+          cat anchor.json || echo "NOT FOUND"
+          echo "=== directory listing ==="
+          ls -la
+
       - name: Run leaderboard
         run: python run.py
 
