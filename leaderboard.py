@@ -10,6 +10,11 @@ ARCHIVE_DIR  = Path("archive")
 
 MIN_SESSION_SECONDS = 30 * 60
 
+# Athletes in the club but not participating in the challenge
+EXCLUDED_ATHLETES = {
+    "Ho", "Greg", "Allison", "Tara", "Jordan", "April", "Alyne", "Emilie"
+}
+
 # ── Activity Categories ───────────────────────────────────────────────────────
 
 ACTIVITY_LABELS = {
@@ -722,6 +727,7 @@ def main():
         print(f"  {len(activities) - anchor_count} activities this month\n")
 
     month_activities = activities[anchor_count:]
+    month_activities = [a for a in month_activities if a.get("athlete", {}).get("firstname", "") not in EXCLUDED_ATHLETES]
     if not month_activities:
         print("No activities found before anchor. Try running --set-anchor to reset.")
         return
