@@ -202,6 +202,12 @@
   "Road Bike": {
     "distance": [
       {
+        "name": "David",
+        "value": 33440.6,
+        "display": "33.4 km (1h 38m)",
+        "month": "2026-05"
+      },
+      {
         "name": "Ruth",
         "value": 19594.9,
         "display": "19.6 km (1h 26m)",
@@ -211,12 +217,6 @@
         "name": "Amy",
         "value": 15553.3,
         "display": "15.6 km (55m)",
-        "month": "2026-05"
-      },
-      {
-        "name": "Kyle",
-        "value": 10617.6,
-        "display": "10.6 km (35m)",
         "month": "2026-05"
       }
     ],
