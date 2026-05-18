@@ -58,6 +58,12 @@
   "Gym / Medium Intensity": {
     "sessions": [
       {
+        "name": "Amy",
+        "value": 6,
+        "display": "6 sessions",
+        "month": "2026-05"
+      },
+      {
         "name": "Scott",
         "value": 5,
         "display": "5 sessions",
@@ -65,12 +71,6 @@
       },
       {
         "name": "Santiago",
-        "value": 5,
-        "display": "5 sessions",
-        "month": "2026-05"
-      },
-      {
-        "name": "Amy",
         "value": 5,
         "display": "5 sessions",
         "month": "2026-05"
@@ -208,15 +208,15 @@
         "month": "2026-05"
       },
       {
-        "name": "Ruth",
-        "value": 19594.9,
-        "display": "19.6 km (1h 26m)",
+        "name": "Amy",
+        "value": 20630.4,
+        "display": "20.6 km (1h 1m)",
         "month": "2026-05"
       },
       {
-        "name": "Amy",
-        "value": 15553.3,
-        "display": "15.6 km (55m)",
+        "name": "Ruth",
+        "value": 19594.9,
+        "display": "19.6 km (1h 26m)",
         "month": "2026-05"
       }
     ],
@@ -228,15 +228,15 @@
         "month": "2026-05"
       },
       {
-        "name": "Kyle",
-        "value": 188,
-        "display": "3:08/km (6.3 km)",
+        "name": "Amy",
+        "value": 178,
+        "display": "2:58/km (20.6 km)",
         "month": "2026-05"
       },
       {
-        "name": "Amy",
-        "value": 215,
-        "display": "3:35/km (15.6 km)",
+        "name": "Kyle",
+        "value": 188,
+        "display": "3:08/km (6.3 km)",
         "month": "2026-05"
       }
     ]
