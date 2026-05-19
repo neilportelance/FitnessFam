@@ -10,6 +10,24 @@ ARCHIVE_DIR  = Path("archive")
 
 MIN_SESSION_SECONDS = 30 * 60
 
+MEMBERS_FILE = Path("members.json")
+
+def load_members():
+    """Load members.json and return (excluded_set, known_set) of 'firstname lastname' keys."""
+    if not MEMBERS_FILE.exists():
+        return set(), set()
+    data = json.load(open(MEMBERS_FILE))
+    excluded = set()
+    known = set()
+    for m in data["members"]:
+        key = f"{m['firstname']} {m['lastname']}"
+        known.add(key)
+        if not m["participating"]:
+            excluded.add(key)
+    return excluded, known
+
+EXCLUDED_ATHLETES, KNOWN_ATHLETES = load_members()
+
 # ── Activity Categories ───────────────────────────────────────────────────────
 
 ACTIVITY_LABELS = {
@@ -263,6 +281,25 @@ def build_name_map(activities):
 
 def get_label(sport_type):
     return ACTIVITY_LABELS.get(sport_type, sport_type)
+
+REVIEW_FILE = Path("manual_review.json")
+
+def load_review():
+    if REVIEW_FILE.exists():
+        with open(REVIEW_FILE) as f:
+            return json.load(f)
+    return {"approved": [], "denied": []}
+
+REVIEW = load_review()
+
+def is_denied_activity(a):
+    """Check if an activity has been denied in manual_review.json."""
+    fn = a.get("athlete", {}).get("firstname", "")
+    name = a.get("name", "")
+    return any(
+        r.get("athlete", "").startswith(fn) and r.get("activity") == name
+        for r in REVIEW.get("denied", [])
+    )
 
 def fmt_dist(m):
     return f"{m/1000:.1f} km"
@@ -722,6 +759,27 @@ def main():
         print(f"  {len(activities) - anchor_count} activities this month\n")
 
     month_activities = activities[anchor_count:]
+
+    # Filter excluded and flag unknown members
+    unknown_members = set()
+    filtered = []
+    for a in month_activities:
+        fn = a.get("athlete", {}).get("firstname", "")
+        ln = a.get("athlete", {}).get("lastname", "")
+        key = f"{fn} {ln}"
+        if key in EXCLUDED_ATHLETES:
+            continue
+        if KNOWN_ATHLETES and key not in KNOWN_ATHLETES:
+            unknown_members.add(key)
+        filtered.append(a)
+    month_activities = filtered
+
+    if unknown_members:
+        print(f"⚠️  Unknown members (not in members.json): {', '.join(sorted(unknown_members))}")
+
+    # Filter denied activities from leaderboard
+    month_activities = [a for a in month_activities if not is_denied_activity(a)]
+
     if not month_activities:
         print("No activities found before anchor. Try running --set-anchor to reset.")
         return
