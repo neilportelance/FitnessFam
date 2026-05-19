@@ -59,20 +59,20 @@
     "sessions": [
       {
         "name": "Amy",
-        "value": 7,
-        "display": "7 sessions",
+        "value": 8,
+        "display": "8 sessions",
         "month": "2026-05"
       },
       {
         "name": "Scott",
-        "value": 5,
-        "display": "5 sessions",
+        "value": 6,
+        "display": "6 sessions",
         "month": "2026-05"
       },
       {
-        "name": "Santiago",
-        "value": 5,
-        "display": "5 sessions",
+        "name": "Neil",
+        "value": 6,
+        "display": "6 sessions",
         "month": "2026-05"
       }
     ]
@@ -222,15 +222,15 @@
     ],
     "pace": [
       {
-        "name": "David",
-        "value": 159,
-        "display": "2:39/km (9.8 km)",
+        "name": "Amy",
+        "value": 158,
+        "display": "2:38/km (14.7 km)",
         "month": "2026-05"
       },
       {
-        "name": "Amy",
-        "value": 178,
-        "display": "2:58/km (20.6 km)",
+        "name": "David",
+        "value": 159,
+        "display": "2:39/km (9.8 km)",
         "month": "2026-05"
       },
       {
@@ -271,5 +271,14 @@
       }
     ]
   },
-  "Elliptical / High Intensity": {}
+  "Elliptical / High Intensity": {
+    "sessions": [
+      {
+        "name": "Melanie",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-05"
+      }
+    ]
+  }
 }
