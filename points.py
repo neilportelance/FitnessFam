@@ -178,12 +178,19 @@ def load_review():
 
 REVIEW = load_review()
 
-def is_denied(athlete_name, activity_name):
-    return any(
-        r.get("athlete", "").startswith(athlete_name.split()[0]) and
-        r.get("activity") == activity_name
-        for r in REVIEW.get("denied", [])
-    )
+def is_denied(athlete_name, activity_name, distance_m=0):
+    for r in REVIEW.get("denied", []):
+        if r.get("athlete", "").startswith(athlete_name.split()[0]) and r.get("activity") == activity_name:
+            detail = r.get("detail", "")
+            if detail and distance_m:
+                try:
+                    denied_km = float(detail.split("km")[0].strip().split()[-1])
+                    if abs(denied_km - distance_m/1000) > 0.5:
+                        continue
+                except:
+                    pass
+            return True
+    return False
 
 def is_approved(athlete_name, activity_name):
     return any(
@@ -216,7 +223,7 @@ def calculate_activity(a):
     full_name = f"{name} {a['athlete'].get('lastname', '')}"
 
     # Check manual review decisions
-    if is_denied(full_name, activity_name):
+    if is_denied(full_name, activity_name, distance_m):
         result = {"name": name, "sport_type": sport_type, "label": label,
                   "activity_name": activity_name, "points": 0.0,
                   "display": "Denied by reviewer", "flag": True,
