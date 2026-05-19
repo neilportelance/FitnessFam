@@ -168,6 +168,30 @@ def fmt_pace(distance_m, time_s):
 def first_name(a):
     return a['athlete']['firstname']
 
+REVIEW_FILE = Path("manual_review.json")
+
+def load_review():
+    if REVIEW_FILE.exists():
+        with open(REVIEW_FILE) as f:
+            return json.load(f)
+    return {"approved": [], "denied": []}
+
+REVIEW = load_review()
+
+def is_denied(athlete_name, activity_name):
+    return any(
+        r.get("athlete", "").startswith(athlete_name.split()[0]) and
+        r.get("activity") == activity_name
+        for r in REVIEW.get("denied", [])
+    )
+
+def is_approved(athlete_name, activity_name):
+    return any(
+        r.get("athlete", "").startswith(athlete_name.split()[0]) and
+        r.get("activity") == activity_name
+        for r in REVIEW.get("approved", [])
+    )
+
 # ── Points Calculation ────────────────────────────────────────────────────────
 
 def calculate_activity(a):
@@ -188,6 +212,18 @@ def calculate_activity(a):
         label = "Team Sports / Medium Intensity"
     if label == "Crossfit / HIIT / High Intensity" and "floor hockey" in activity_name_lower:
         label = "Team Sports / Medium Intensity"
+
+    full_name = f"{name} {a['athlete'].get('lastname', '')}"
+
+    # Check manual review decisions
+    if is_denied(full_name, activity_name):
+        result = {"name": name, "sport_type": sport_type, "label": label,
+                  "activity_name": activity_name, "points": 0.0,
+                  "display": "Denied by reviewer", "flag": True,
+                  "flag_reason": "❌ Denied by reviewer", "review": True, "denied": True}
+        return result
+
+    approved = is_approved(full_name, activity_name)
 
     result = {
         "name": name,
@@ -356,16 +392,28 @@ def build_points_html(totals, month_name):
         for r in data["activities"]:
             flag_td = ""
             row_class = ""
-            if r["review"]:
+            row_style = ""
+
+            if r.get("denied"):
+                row_class = "denied-row"
+                row_style = "opacity:0.4;text-decoration:line-through;"
+                flag_td = f'<td class="flag-cell">❌ Denied by reviewer</td>'
+            elif r["review"]:
                 row_class = "review-row"
-                flag_td = f'<td class="flag-cell">⚠️ {r["flag_reason"]}</td>'
+                # Build GitHub issue link
+                athlete_full = f"{name} {data['activities'][0]['name'] if data['activities'] else ''}"
+                issue_title = f"Review: {name} - {r['activity_name']}"
+                issue_body = f"**Athlete:** {name}\n**Activity:** {r['activity_name']}\n**Type:** {r['label']}\n**Detail:** {r['display']}\n**Points:** {round(r['points'],2)}\n**Flag reason:** {r['flag_reason']}"
+                import urllib.parse
+                issue_url = f"https://github.com/neilportelance/FitnessFam/issues/new?title={urllib.parse.quote(issue_title)}&body={urllib.parse.quote(issue_body)}&labels=pending-review"
+                flag_td = f'<td class="flag-cell">⚠️ {r["flag_reason"]} &nbsp;<a href="{issue_url}" target="_blank" class="review-btn">Open Review</a></td>'
             elif r["flag"]:
                 row_class = "flag-row"
                 flag_td = f'<td class="flag-cell">🔴 {r["flag_reason"]}</td>'
             else:
                 flag_td = '<td class="flag-cell"></td>'
 
-            rows += f'''<tr class="{row_class}">
+            rows += f'''<tr class="{row_class}" style="{row_style}">
               <td class="act-name-cell">{r["activity_name"]}</td>
               <td class="type-cell">{r["label"]}</td>
               <td class="detail-cell">{r["display"]}</td>
@@ -419,6 +467,9 @@ def build_points_html(totals, month_name):
   .detail-table tr:last-child td{{border-bottom:none}}
   .flag-row td{{background:#FFF5F5}}
   .review-row td{{background:#FFFBEB}}
+  .denied-row td{{background:#FFF5F5;opacity:0.5;text-decoration:line-through}}
+  .review-btn{{display:inline-block;margin-left:8px;padding:2px 8px;background:#1D4ED8;color:#fff;border-radius:4px;font-size:11px;font-weight:600;text-decoration:none}}
+  .review-btn:hover{{background:#1E40AF}}
   .flag-cell{{font-size:12px;color:#92400E}}
   .pts-cell{{font-weight:600;text-align:right;white-space:nowrap}}
   .act-name-cell{{color:#374151}}

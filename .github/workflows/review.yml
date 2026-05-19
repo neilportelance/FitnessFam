@@ -1,0 +1,73 @@
+name: Process Activity Review
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  process:
+    if: github.event.label.name == 'approved' || github.event.label.name == 'denied'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Process review decision
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          DECISION: ${{ github.event.label.name }}
+        run: python process_review.py "$ISSUE_TITLE" "$DECISION" "$ISSUE_BODY"
+
+      - name: Write config from secrets
+        run: |
+          cat > config.json << CONFIGEOF
+          {
+            "client_id": ${{ secrets.STRAVA_CLIENT_ID }},
+            "client_secret": "${{ secrets.STRAVA_CLIENT_SECRET }}",
+            "refresh_token": "${{ secrets.STRAVA_REFRESH_TOKEN }}",
+            "club_id": ${{ secrets.STRAVA_CLUB_ID }}
+          }
+          CONFIGEOF
+          echo '${{ secrets.MEMBER_TOKENS }}' > member_tokens.json
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Regenerate reports
+        run: python run.py
+
+      - name: Commit review decision
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add manual_review.json alltime.json anchor2.json || true
+          git diff --staged --quiet || git commit -m "Review decision: ${{ github.event.label.name }} - ${{ github.event.issue.title }} [skip ci]"
+          git push || true
+
+      - name: Deploy updated reports
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+          keep_files: false
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Decision recorded: **${{ github.event.label.name }}**. Reports have been updated automatically.`
+            })
