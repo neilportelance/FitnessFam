@@ -296,10 +296,20 @@ def is_denied_activity(a):
     """Check if an activity has been denied in manual_review.json."""
     fn = a.get("athlete", {}).get("firstname", "")
     name = a.get("name", "")
-    return any(
-        r.get("athlete", "").startswith(fn) and r.get("activity") == name
-        for r in REVIEW.get("denied", [])
-    )
+    distance = round(a.get("distance", 0))
+    for r in REVIEW.get("denied", []):
+        if r.get("athlete", "").startswith(fn) and r.get("activity") == name:
+            # If detail contains distance, match on that too for precision
+            detail = r.get("detail", "")
+            if detail:
+                try:
+                    denied_km = float(detail.split("km")[0].strip().split()[-1])
+                    if abs(denied_km - distance/1000) > 0.5:
+                        continue  # different distance, not the same activity
+                except:
+                    pass
+            return True
+    return False
 
 def fmt_dist(m):
     return f"{m/1000:.1f} km"
