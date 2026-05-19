@@ -59,8 +59,8 @@
     "sessions": [
       {
         "name": "Amy",
-        "value": 6,
-        "display": "6 sessions",
+        "value": 7,
+        "display": "7 sessions",
         "month": "2026-05"
       },
       {
@@ -80,6 +80,12 @@
   "Run": {
     "distance": [
       {
+        "name": "Connor",
+        "value": 106131.0,
+        "display": "106.1 km (28m)",
+        "month": "2026-05"
+      },
+      {
         "name": "Santiago",
         "value": 21505.2,
         "display": "21.5 km (2h 5m)",
@@ -90,15 +96,15 @@
         "value": 19007.5,
         "display": "19.0 km (2h 6m)",
         "month": "2026-05"
-      },
-      {
-        "name": "Melanie",
-        "value": 14004.8,
-        "display": "14.0 km (1h 19m)",
-        "month": "2026-05"
       }
     ],
     "pace": [
+      {
+        "name": "Connor",
+        "value": 16,
+        "display": "0:16/km (106.1 km)",
+        "month": "2026-05"
+      },
       {
         "name": "Billy",
         "value": 252,
@@ -109,12 +115,6 @@
         "name": "Santiago",
         "value": 325,
         "display": "5:24/km (5.7 km)",
-        "month": "2026-05"
-      },
-      {
-        "name": "Melanie",
-        "value": 332,
-        "display": "5:32/km (9.0 km)",
         "month": "2026-05"
       }
     ]
