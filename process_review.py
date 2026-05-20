@@ -88,6 +88,24 @@ def main():
     save_review(review)
     print(f"✓ Saved to manual_review.json ({decision})")
 
+    # If approved, log to approved_activities.json
+    if decision == "approved":
+        approved_file = Path("approved_activities.json")
+        approved_log = []
+        if approved_file.exists():
+            approved_log = json.load(open(approved_file))
+        approved_log.append({
+            "athlete": entry["athlete"],
+            "activity": entry["activity"],
+            "type": entry["type"],
+            "detail": entry["detail"],
+            "points": entry["points"],
+            "flag_reason": entry["flag_reason"],
+            "approved_at": datetime.now().isoformat()
+        })
+        json.dump(approved_log, open(approved_file, "w"), indent=2)
+        print(f"✓ Logged to approved_activities.json")
+
     # If denied, remove from cache2.json and log full activity
     if decision == "denied" and CACHE2_FILE.exists():
         acts = json.load(open(CACHE2_FILE))

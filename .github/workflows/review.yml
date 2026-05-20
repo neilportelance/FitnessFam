@@ -50,7 +50,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add manual_review.json cache2.json denied_log.json denied_activities.json alltime.json anchor2.json || true
+          git add manual_review.json cache2.json denied_log.json denied_activities.json approved_activities.json alltime.json anchor2.json || true
           git diff --staged --quiet || git commit -m "Review decision: ${{ github.event.label.name }} - ${{ github.event.issue.title }} [skip ci]"
           git push || true
 

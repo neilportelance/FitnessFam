@@ -170,6 +170,7 @@ def first_name(a):
 
 REVIEW_FILE = Path("manual_review.json")
 DENIED_ACTS_FILE = Path("denied_activities.json")
+APPROVED_ACTS_FILE = Path("approved_activities.json")
 
 def load_review():
     if REVIEW_FILE.exists():
@@ -178,13 +179,18 @@ def load_review():
     return {"approved": [], "denied": []}
 
 def load_denied_activities():
-    """Load denied_activities.json — used to show crossed-out in points.html."""
     if DENIED_ACTS_FILE.exists():
         return json.load(open(DENIED_ACTS_FILE))
     return []
 
+def load_approved_activities():
+    if APPROVED_ACTS_FILE.exists():
+        return json.load(open(APPROVED_ACTS_FILE))
+    return []
+
 REVIEW = load_review()
 DENIED_ACTIVITIES = load_denied_activities()
+APPROVED_ACTIVITIES = load_approved_activities()
 
 def is_denied(athlete_name, activity_name, distance_m=0):
     for r in REVIEW.get("denied", []):
@@ -201,10 +207,19 @@ def is_denied(athlete_name, activity_name, distance_m=0):
     return False
 
 def is_approved(athlete_name, activity_name):
-    return any(
+    # Check manual_review.json
+    in_review = any(
         r.get("athlete", "").startswith(athlete_name.split()[0]) and
         r.get("activity") == activity_name
         for r in REVIEW.get("approved", [])
+    )
+    if in_review:
+        return True
+    # Check approved_activities.json
+    return any(
+        e.get("athlete", "").startswith(athlete_name.split()[0]) and
+        e.get("activity") == activity_name
+        for e in APPROVED_ACTIVITIES
     )
 
 # ── Points Calculation ────────────────────────────────────────────────────────
@@ -311,6 +326,8 @@ def calculate_activity(a):
             result["flag"] = True
             result["flag_reason"] = "; ".join(flags)
             result["review"] = True
+        elif flags and approved:
+            result["approved_cleared"] = True
 
         return result
 
@@ -439,6 +456,8 @@ def build_points_html(totals, month_name):
                 row_class = "denied-row"
                 row_style = "opacity:0.4;text-decoration:line-through;"
                 flag_td = f'<td class="flag-cell">❌ Denied by reviewer</td>'
+            elif r.get("approved_cleared"):
+                flag_td = f'<td class="flag-cell" style="color:#166534">✓ Approved by reviewer</td>'
             elif r["review"]:
                 row_class = "review-row"
                 # Build GitHub issue link
