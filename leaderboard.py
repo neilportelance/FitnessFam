@@ -37,8 +37,8 @@ ACTIVITY_LABELS = {
     "Kayaking": "Paddle / Kayak / SUP", "Canoeing": "Paddle / Kayak / SUP",
     "StandUpPaddling": "Paddle / Kayak / SUP",
     "MountainBikeRide": "Mountain Bike",
-    "Ride": "Road Bike", "GravelRide": "Road Bike",
-    "VirtualRide": "Indoor Bike / Spin", "Rowing": "Indoor Bike / Spin",
+    "Ride": "Bike", "GravelRide": "Bike",
+    "VirtualRide": "Bike", "Rowing": "Bike",
     "Swim": "Swim",
     "AlpineSki": "Downhill Ski",
     "Yoga": "Yoga / Low Intensity", "IceSkate": "Yoga / Low Intensity",
@@ -54,19 +54,19 @@ ACTIVITY_LABELS = {
 }
 
 MIN_DISTANCE = {
-    "Run": 3000, "Road Bike": 5000,
-    "Indoor Bike / Spin": 5000, "Mountain Bike": 5000, "Swim": 1000,
+    "Run": 3000, "Bike": 5000,
+    "Mountain Bike": 5000, "Swim": 1000,
 }
 
 NO_PACE_ACTIVITIES = {"Walk / Hike", "Paddle / Kayak / SUP", "Downhill Ski"}
 
 DISTANCE_ACTIVITIES = {
     "Run", "Nordic Ski / XC Ski", "Walk / Hike",
-    "Paddle / Kayak / SUP", "Mountain Bike", "Road Bike", "Indoor Bike / Spin", "Swim", "Downhill Ski",
+    "Paddle / Kayak / SUP", "Mountain Bike", "Bike", "Swim", "Downhill Ski",
 }
 
 ACTIVITY_ORDER = [
-    "Run", "Nordic Ski / XC Ski", "Road Bike", "Indoor Bike / Spin", "Mountain Bike",
+    "Run", "Nordic Ski / XC Ski", "Bike", "Mountain Bike",
     "Swim", "Downhill Ski", "Walk / Hike", "Paddle / Kayak / SUP",
     "Crossfit / HIIT / High Intensity", "Elliptical / High Intensity",
     "Tennis / Squash / High Intensity", "Team Sports / Medium Intensity",
@@ -75,8 +75,7 @@ ACTIVITY_ORDER = [
 
 ACTIVITY_EMOJI = {
     "Run": "🏃", "Nordic Ski / XC Ski": "⛷️", "Walk / Hike": "🚶",
-    "Paddle / Kayak / SUP": "🛶", "Mountain Bike": "🚵", "Road Bike": "🚴",
-    "Indoor Bike / Spin": "🏠", "Swim": "🏊", "Downhill Ski": "🎿",
+    "Paddle / Kayak / SUP": "🛶", "Mountain Bike": "🚵", "Bike": "🚴", "Swim": "🏊", "Downhill Ski": "🎿",
     "Yoga / Low Intensity": "🧘", "Gym / Medium Intensity": "💪",
     "Elliptical / High Intensity": "⚡", "Crossfit / HIIT / High Intensity": "🔥",
     "Tennis / Squash / High Intensity": "🎾", "Pickleball / Medium Intensity": "🏓",
