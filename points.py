@@ -307,7 +307,7 @@ def calculate_activity(a):
                 flags.append(f"very slow pace ({speed_kmh:.1f} km/h) — possible GPS error or vehicle")
             elif speed_kmh > max_speed:
                 flags.append(f"very fast pace ({speed_kmh:.1f} km/h) — verify activity")
-        if flags:
+        if flags and not approved:
             result["flag"] = True
             result["flag_reason"] = "; ".join(flags)
             result["review"] = True
@@ -394,7 +394,7 @@ def build_points_html(totals, month_name):
         pct = min(pts / GOAL * 100, 100)
         color = "#16A34A" if pts >= GOAL else "#F59E0B" if pts >= 60 else "#EF4444"
         badge = ' <span style="background:#DCFCE7;color:#166534;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">✓ Goal met</span>' if pts >= GOAL else ""
-        has_review = any(r["review"] for r in data["activities"])
+        has_review = any(r["review"] for r in data["activities"] if not r.get("denied"))
         review_badge = ' <span style="background:#FEF3C7;color:#92400E;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">⚠️ Review</span>' if has_review else ""
 
         diff = round(pts - expected, 2)
