@@ -39,5 +39,33 @@
       "sport_type": "Walk",
       "device_name": "Garmin v\u00edvoactive 5"
     }
+  },
+  {
+    "denied_at": "2026-05-20T00:18:13.667926",
+    "reason": "unusually long (11.0 km) \u2014 verify activity",
+    "review_entry": {
+      "athlete": "Connor",
+      "activity": "Morning Walk - Kyoto",
+      "type": "Walk / Hike",
+      "detail": "11.00 km \u2192 7.33 pts",
+      "points": "7.33",
+      "flag_reason": "unusually long (11.0 km) \u2014 verify activity"
+    },
+    "activity": {
+      "resource_state": 2,
+      "athlete": {
+        "resource_state": 2,
+        "firstname": "Connor",
+        "lastname": "M."
+      },
+      "name": "Morning Walk - Kyoto",
+      "distance": 11002.0,
+      "moving_time": 11828,
+      "elapsed_time": 21313,
+      "total_elevation_gain": 239.3,
+      "type": "Walk",
+      "sport_type": "Walk",
+      "device_name": "Garmin v\u00edvoactive 5"
+    }
   }
 ]
