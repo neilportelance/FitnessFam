@@ -8,6 +8,14 @@
       "detail": "106.13 km @ 0:16/km \u2192 106.13 pts",
       "points": "106.13",
       "flag_reason": "unusually long (106.1 km) \u2014 verify activity; very fast pace (219.7 km/h) \u2014 verify activity"
+    },
+    {
+      "athlete": "Connor",
+      "activity": "Morning Walk",
+      "type": "Walk / Hike",
+      "detail": "14.52 km \u2192 9.68 pts",
+      "points": "9.68",
+      "flag_reason": "unusually long (14.5 km) \u2014 verify activity"
     }
   ]
 }
