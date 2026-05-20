@@ -185,6 +185,7 @@ def fetch_all_activities(token, club_id):
 CACHE_FILE  = Path("cache.json")   # legacy, newest-first
 CACHE2_FILE = Path("cache2.json")  # new, oldest-first
 ANCHOR2_FILE = Path("anchor2.json")
+REVIEW_FILE = Path("manual_review.json")
 
 def activity_fingerprint(a):
     """Unique key for an activity — used for deduplication."""
@@ -217,12 +218,39 @@ def merge_and_save_cache(fresh_activities):
     """
     Merge fresh API activities (newest-first) into cache2 (oldest-first).
     New activities are appended to the END of cache2.
+    Denied activities are never added.
     """
     cached = load_cache()
     existing_fps = {activity_fingerprint(a) for a in cached}
-    # fresh_activities is newest-first from API; new ones not yet in cache
-    new_entries = [a for a in fresh_activities if activity_fingerprint(a) not in existing_fps]
-    # Append new entries oldest-first (reverse the new ones before appending)
+
+    # Load denied list to filter out permanently
+    review = {"denied": []}
+    if REVIEW_FILE.exists():
+        with open(REVIEW_FILE) as f:
+            review = json.load(f)
+
+    def is_denied(a):
+        fn = a.get("athlete", {}).get("firstname", "")
+        name = a.get("name", "")
+        dist = a.get("distance", 0)
+        for r in review.get("denied", []):
+            if r.get("athlete", "").startswith(fn) and r.get("activity") == name:
+                try:
+                    denied_km = float(r.get("detail", "").split("km")[0].strip().split()[-1])
+                    if abs(dist/1000 - denied_km) > 0.5:
+                        continue
+                except:
+                    pass
+                return True
+        return False
+
+    # fresh_activities is newest-first from API; new ones not yet in cache, not denied
+    new_entries = [a for a in fresh_activities
+                   if activity_fingerprint(a) not in existing_fps and not is_denied(a)]
+
+    # Also remove denied from existing cache
+    cached = [a for a in cached if not is_denied(a)]
+
     merged = cached + list(reversed(new_entries))
     with open(CACHE2_FILE, "w") as f:
         json.dump(merged, f)
