@@ -1,0 +1,21 @@
+[
+  {
+    "activity": {
+      "athlete": {
+        "resource_state": 2,
+        "firstname": "Connor",
+        "lastname": "M."
+      },
+      "name": "Lunch Run",
+      "distance": 106131.0,
+      "moving_time": 1680,
+      "elapsed_time": 1680,
+      "total_elevation_gain": 0,
+      "type": "Run",
+      "sport_type": "Run",
+      "workout_type": null
+    },
+    "reason": "unusually long (106.1 km) \u2014 verify activity; very fast pace (219.7 km/h) \u2014 verify activity",
+    "denied_at": "2026-05-19T20:19:39.805284"
+  }
+]
