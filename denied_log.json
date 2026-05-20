@@ -1,0 +1,23 @@
+[
+  {
+    "denied_at": "2026-05-20T00:13:58.502634",
+    "reason": "unusually long (106.1 km) \u2014 verify activity; very fast pace (219.7 km/h) \u2014 verify activity",
+    "activity": {
+      "resource_state": 2,
+      "athlete": {
+        "resource_state": 2,
+        "firstname": "Connor",
+        "lastname": "M."
+      },
+      "name": "Lunch Run",
+      "distance": 106131.0,
+      "moving_time": 1739,
+      "elapsed_time": 1802,
+      "total_elevation_gain": 577.9,
+      "type": "Run",
+      "sport_type": "Run",
+      "workout_type": null,
+      "device_name": "Garmin v\u00edvoactive 5"
+    }
+  }
+]
