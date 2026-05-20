@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Write config.json from secrets
+      - name: Write config and member tokens from secrets
         run: |
           cat > config.json << CONFIGEOF
           {
@@ -33,6 +33,7 @@ jobs:
             "club_id": ${{ secrets.STRAVA_CLUB_ID }}
           }
           CONFIGEOF
+          echo '${{ secrets.MEMBER_TOKENS }}' > member_tokens.json
 
       - name: Restore activity cache
         uses: actions/cache@v4
@@ -41,6 +42,11 @@ jobs:
           key: strava-cache2-${{ github.run_id }}
           restore-keys: |
             strava-cache2-
+
+      - name: Debug review file
+        run: |
+          echo "=== manual_review.json ==="
+          cat manual_review.json || echo "NOT FOUND"
 
       - name: Run leaderboard
         run: python run.py
