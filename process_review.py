@@ -112,7 +112,7 @@ def main():
         removed = [a for a in acts if should_remove(a)]
         kept = [a for a in acts if not should_remove(a)]
 
-        # Log to denied_log.json
+        # Log to denied_log.json (full audit trail)
         log = []
         if DENIED_LOG_FILE.exists():
             log = json.load(open(DENIED_LOG_FILE))
@@ -120,13 +120,27 @@ def main():
             log.append({
                 "denied_at": datetime.now().isoformat(),
                 "reason": entry.get("flag_reason", ""),
+                "review_entry": entry,
                 "activity": a
             })
         json.dump(log, open(DENIED_LOG_FILE, "w"), indent=2)
 
+        # Save to denied_activities.json for points.html display (crossed out)
+        denied_acts_file = Path("denied_activities.json")
+        denied_acts = []
+        if denied_acts_file.exists():
+            denied_acts = json.load(open(denied_acts_file))
+        for a in removed:
+            denied_acts.append({
+                "activity": a,
+                "reason": entry.get("flag_reason", ""),
+                "denied_at": datetime.now().isoformat()
+            })
+        json.dump(denied_acts, open(denied_acts_file, "w"), indent=2)
+
         json.dump(kept, open(CACHE2_FILE, "w"))
         print(f"✓ Removed {len(removed)} activities from cache2.json")
-        print(f"✓ Logged to {DENIED_LOG_FILE}")
+        print(f"✓ Logged to {DENIED_LOG_FILE} and denied_activities.json")
 
 if __name__ == "__main__":
     main()

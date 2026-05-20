@@ -169,6 +169,7 @@ def first_name(a):
     return a['athlete']['firstname']
 
 REVIEW_FILE = Path("manual_review.json")
+DENIED_ACTS_FILE = Path("denied_activities.json")
 
 def load_review():
     if REVIEW_FILE.exists():
@@ -176,7 +177,14 @@ def load_review():
             return json.load(f)
     return {"approved": [], "denied": []}
 
+def load_denied_activities():
+    """Load denied_activities.json — used to show crossed-out in points.html."""
+    if DENIED_ACTS_FILE.exists():
+        return json.load(open(DENIED_ACTS_FILE))
+    return []
+
 REVIEW = load_review()
+DENIED_ACTIVITIES = load_denied_activities()
 
 def is_denied(athlete_name, activity_name, distance_m=0):
     for r in REVIEW.get("denied", []):
@@ -339,6 +347,32 @@ def calculate_totals(month_activities):
             totals[name] = {"points": 0.0, "activities": []}
         totals[name]["points"] = totals[name]["points"] + r["points"]
         totals[name]["activities"].append(r)
+
+    # Inject denied activities as crossed-out 0-pt entries
+    for entry in DENIED_ACTIVITIES:
+        a = entry["activity"]
+        fn = a.get("athlete", {}).get("firstname", "")
+        ln = a.get("athlete", {}).get("lastname", "")
+        name = fn
+        if name not in totals:
+            continue  # only show for athletes already in the standings
+        label = get_label(a.get("sport_type", ""))
+        dist = a.get("distance", 0)
+        time = a.get("moving_time", 0)
+        detail = f"{dist/1000:.2f} km" if dist > 0 else f"{time//60}m"
+        denied_result = {
+            "name": name,
+            "sport_type": a.get("sport_type", ""),
+            "label": label,
+            "activity_name": a.get("name", ""),
+            "points": 0.0,
+            "display": f"{detail} → 0 pts (denied)",
+            "flag": True,
+            "flag_reason": entry.get("reason", "Denied by reviewer"),
+            "review": True,
+            "denied": True
+        }
+        totals[name]["activities"].append(denied_result)
 
     return totals, results
 

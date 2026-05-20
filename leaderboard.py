@@ -229,6 +229,13 @@ def merge_and_save_cache(fresh_activities):
         with open(REVIEW_FILE) as f:
             review = json.load(f)
 
+    # Also load denied_activities.json as additional blacklist
+    denied_acts_file = Path("denied_activities.json")
+    denied_activities_list = []
+    if denied_acts_file.exists():
+        denied_activities_list = [e["activity"] for e in json.load(open(denied_acts_file))]
+    denied_fps = {activity_fingerprint(a) for a in denied_activities_list}
+
     def is_denied(a):
         fn = a.get("athlete", {}).get("firstname", "")
         name = a.get("name", "")
@@ -246,10 +253,12 @@ def merge_and_save_cache(fresh_activities):
 
     # fresh_activities is newest-first from API; new ones not yet in cache, not denied
     new_entries = [a for a in fresh_activities
-                   if activity_fingerprint(a) not in existing_fps and not is_denied(a)]
+                   if activity_fingerprint(a) not in existing_fps
+                   and not is_denied(a)
+                   and activity_fingerprint(a) not in denied_fps]
 
     # Also remove denied from existing cache
-    cached = [a for a in cached if not is_denied(a)]
+    cached = [a for a in cached if not is_denied(a) and activity_fingerprint(a) not in denied_fps]
 
     merged = cached + list(reversed(new_entries))
     with open(CACHE2_FILE, "w") as f:
