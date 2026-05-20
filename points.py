@@ -421,8 +421,8 @@ def build_points_html(totals, month_name):
     # Detail table per athlete — alphabetical
     detail_html = ""
     for name, data in sorted_athletes:
-        has_flags = any(r["flag"] for r in data["activities"])
-        pending_pts = sum(r["points"] for r in data["activities"] if r["review"])
+        has_flags = any(r["flag"] for r in data["activities"] if not r.get("denied"))
+        pending_pts = sum(r["points"] for r in data["activities"] if r["review"] and not r.get("denied"))
         confirmed_pts = round(data["points"] - pending_pts, 2)
         pending_pts = round(pending_pts, 2)
         total_pts = round(data["points"], 2)
