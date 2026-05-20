@@ -9,8 +9,11 @@ import sys
 import json
 import re
 from pathlib import Path
+from datetime import datetime
 
 REVIEW_FILE = Path("manual_review.json")
+CACHE2_FILE = Path("cache2.json")
+DENIED_LOG_FILE = Path("denied_log.json")
 
 def load_review():
     if REVIEW_FILE.exists():
@@ -84,6 +87,46 @@ def main():
 
     save_review(review)
     print(f"✓ Saved to manual_review.json ({decision})")
+
+    # If denied, remove from cache2.json and log full activity
+    if decision == "denied" and CACHE2_FILE.exists():
+        acts = json.load(open(CACHE2_FILE))
+        before = len(acts)
+        firstname = entry["athlete"].split()[0] if entry["athlete"] else ""
+        activity_name = entry["activity"]
+        try:
+            denied_km = float(entry["detail"].split("km")[0].strip().split()[-1])
+        except:
+            denied_km = None
+
+        def should_remove(a):
+            if a.get("athlete", {}).get("firstname", "") != firstname:
+                return False
+            if a.get("name", "") != activity_name:
+                return False
+            if denied_km is not None:
+                if abs(a.get("distance", 0)/1000 - denied_km) > 0.5:
+                    return False
+            return True
+
+        removed = [a for a in acts if should_remove(a)]
+        kept = [a for a in acts if not should_remove(a)]
+
+        # Log to denied_log.json
+        log = []
+        if DENIED_LOG_FILE.exists():
+            log = json.load(open(DENIED_LOG_FILE))
+        for a in removed:
+            log.append({
+                "denied_at": datetime.now().isoformat(),
+                "reason": entry.get("flag_reason", ""),
+                "activity": a
+            })
+        json.dump(log, open(DENIED_LOG_FILE, "w"), indent=2)
+
+        json.dump(kept, open(CACHE2_FILE, "w"))
+        print(f"✓ Removed {len(removed)} activities from cache2.json")
+        print(f"✓ Logged to {DENIED_LOG_FILE}")
 
 if __name__ == "__main__":
     main()

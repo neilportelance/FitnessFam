@@ -44,13 +44,13 @@ jobs:
         run: pip install requests
 
       - name: Regenerate reports
-        run: python run.py
+        run: python run.py --no-fetch
 
       - name: Commit review decision
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add manual_review.json alltime.json anchor2.json || true
+          git add manual_review.json cache2.json denied_log.json alltime.json anchor2.json || true
           git diff --staged --quiet || git commit -m "Review decision: ${{ github.event.label.name }} - ${{ github.event.issue.title }} [skip ci]"
           git push || true
 
