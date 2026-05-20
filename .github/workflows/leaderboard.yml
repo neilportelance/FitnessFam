@@ -50,7 +50,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add cache2.json alltime.json anchor2.json || true
+          git add cache2.json alltime.json anchor2.json denied_activities.json || true
           git diff --staged --quiet || git commit -m "Update leaderboard data [skip ci]"
           git push || true
 
