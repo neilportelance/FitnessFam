@@ -16,6 +16,14 @@
       "detail": "14.52 km \u2192 9.68 pts",
       "points": "9.68",
       "flag_reason": "unusually long (14.5 km) \u2014 verify activity"
+    },
+    {
+      "athlete": "Connor",
+      "activity": "Morning Walk - Kyoto",
+      "type": "Walk / Hike",
+      "detail": "11.00 km \u2192 7.33 pts",
+      "points": "7.33",
+      "flag_reason": "unusually long (11.0 km) \u2014 verify activity"
     }
   ]
 }
