@@ -1,5 +1,14 @@
 {
-  "approved": [],
+  "approved": [
+    {
+      "athlete": "Kyle",
+      "activity": "Lunch Walk",
+      "type": "Walk / Hike",
+      "detail": "0.09 km \u2192 0.06 pts",
+      "points": "0.06",
+      "flag_reason": "very slow pace (0.5 km/h) \u2014 possible GPS error or vehicle"
+    }
+  ],
   "denied": [
     {
       "athlete": "Connor",
