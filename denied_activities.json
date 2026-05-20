@@ -15,7 +15,43 @@
       "sport_type": "Run",
       "workout_type": null
     },
-    "reason": "unusually long (106.1 km) \u2014 verify activity; very fast pace (219.7 km/h) \u2014 verify activity",
+    "reason": "unusually long (106.1 km) - very fast pace (219.7 km/h)",
     "denied_at": "2026-05-19T20:19:39.805284"
+  },
+  {
+    "activity": {
+      "athlete": {
+        "resource_state": 2,
+        "firstname": "Connor",
+        "lastname": "M."
+      },
+      "name": "Morning Walk - Kyoto",
+      "distance": 11002.0,
+      "moving_time": 11828,
+      "elapsed_time": 21313,
+      "total_elevation_gain": 239.3,
+      "type": "Walk",
+      "sport_type": "Walk"
+    },
+    "reason": "unusually long (11.0 km) - suspected train ride Kyoto to Nara",
+    "denied_at": "2026-05-20T00:18:13.668184"
+  },
+  {
+    "activity": {
+      "athlete": {
+        "resource_state": 2,
+        "firstname": "Connor",
+        "lastname": "M."
+      },
+      "name": "Morning Walk",
+      "distance": 14520.0,
+      "moving_time": 15540,
+      "elapsed_time": 15540,
+      "total_elevation_gain": 0,
+      "type": "Walk",
+      "sport_type": "Walk"
+    },
+    "reason": "unusually long (14.5 km) - suspected train ride Kyoto to Nara",
+    "denied_at": "2026-05-19T20:00:00.000000"
   }
 ]
