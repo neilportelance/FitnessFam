@@ -65,8 +65,8 @@
       },
       {
         "name": "Scott",
-        "value": 6,
-        "display": "6 sessions",
+        "value": 7,
+        "display": "7 sessions",
         "month": "2026-05"
       },
       {
@@ -196,6 +196,12 @@
         "value": 1,
         "display": "1 session",
         "month": "2026-05"
+      },
+      {
+        "name": "David",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-05"
       }
     ]
   },
@@ -275,8 +281,8 @@
     "sessions": [
       {
         "name": "Melanie",
-        "value": 1,
-        "display": "1 session",
+        "value": 2,
+        "display": "2 sessions",
         "month": "2026-05"
       }
     ]
