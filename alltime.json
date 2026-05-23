@@ -112,9 +112,9 @@
         "month": "2026-05"
       },
       {
-        "name": "Santiago",
-        "value": 325,
-        "display": "5:24/km (5.7 km)",
+        "name": "Melanie",
+        "value": 309,
+        "display": "5:08/km (4.5 km)",
         "month": "2026-05"
       }
     ]
@@ -303,8 +303,8 @@
       },
       {
         "name": "Ruth",
-        "value": 19594.9,
-        "display": "19.6 km (1h 26m)",
+        "value": 21721.8,
+        "display": "21.7 km (1h 26m)",
         "month": "2026-05"
       }
     ],
@@ -323,8 +323,8 @@
       },
       {
         "name": "David",
-        "value": 152,
-        "display": "2:32/km (12.7 km)",
+        "value": 151,
+        "display": "2:31/km (15.5 km)",
         "month": "2026-05"
       }
     ]
