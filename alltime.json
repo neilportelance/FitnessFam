@@ -21,8 +21,8 @@
     "distance": [
       {
         "name": "Connor",
-        "value": 14520.7,
-        "display": "14.5 km (4h 19m)",
+        "value": 18090.0,
+        "display": "18.1 km (5h 1m)",
         "month": "2026-05"
       },
       {
@@ -71,8 +71,8 @@
       },
       {
         "name": "Neil",
-        "value": 6,
-        "display": "6 sessions",
+        "value": 7,
+        "display": "7 sessions",
         "month": "2026-05"
       }
     ]
