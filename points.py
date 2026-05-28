@@ -234,6 +234,7 @@ def calculate_activity(a):
     name = first_name(a)
     distance_m = a.get("distance", 0)
     moving_time_s = a.get("moving_time", 0)
+    elapsed_time_s = a.get("elapsed_time", 0)
     activity_name = a.get("name", "")
 
     # Name-based overrides — e.g. hockey logged as ice skating, floor hockey logged as HIIT
@@ -242,6 +243,11 @@ def calculate_activity(a):
         label = "Team Sports / Medium Intensity"
     if label == "Crossfit / HIIT / High Intensity" and "floor hockey" in activity_name_lower:
         label = "Team Sports / Medium Intensity"
+
+    # For time-based activities use elapsed_time if moving_time is suspiciously low
+    # (e.g. Pickleball/Gym where GPS doesn't track movement)
+    if label in TIME_RATES and elapsed_time_s > moving_time_s * 2:
+        moving_time_s = elapsed_time_s
 
     full_name = f"{name} {a['athlete'].get('lastname', '')}"
 
