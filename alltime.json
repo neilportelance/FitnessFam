@@ -65,8 +65,8 @@
       },
       {
         "name": "Scott",
-        "value": 8,
-        "display": "8 sessions",
+        "value": 9,
+        "display": "9 sessions",
         "month": "2026-05"
       },
       {
@@ -325,6 +325,16 @@
         "name": "David",
         "value": 151,
         "display": "2:31/km (15.5 km)",
+        "month": "2026-05"
+      }
+    ]
+  },
+  "Team Sports / Medium Intensity": {
+    "sessions": [
+      {
+        "name": "Connor",
+        "value": 1,
+        "display": "1 session",
         "month": "2026-05"
       }
     ]
