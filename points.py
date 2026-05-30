@@ -397,6 +397,18 @@ def calculate_totals(month_activities):
         }
         totals[name]["activities"].append(denied_result)
 
+    # Inject manual athletes from manual_athletes.json
+    manual_file = Path("manual_athletes.json")
+    if manual_file.exists():
+        manual = json.load(open(manual_file))
+        for m in manual:
+            name = m["name"]
+            pts = float(m["points"])
+            if name not in totals:
+                totals[name] = {"points": pts, "activities": [], "manual": True}
+            else:
+                totals[name]["points"] += pts
+
     return totals, results
 
 # ── HTML Output ───────────────────────────────────────────────────────────────
@@ -417,7 +429,9 @@ def build_points_html(totals, month_name):
         pct = min(pts / GOAL * 100, 100)
         color = "#16A34A" if pts >= GOAL else "#F59E0B" if pts >= 60 else "#EF4444"
         badge = ' <span style="background:#DCFCE7;color:#166534;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">✓ Goal met</span>' if pts >= GOAL else ""
-        has_review = any(r["review"] for r in data["activities"] if not r.get("denied"))
+        is_manual = data.get("manual", False)
+        manual_badge = ' <span style="background:#EFF6FF;color:#1D4ED8;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">Manual</span>' if is_manual else ""
+        has_review = any(r["review"] for r in data["activities"] if not r.get("denied")) if not is_manual else False
         review_badge = ' <span style="background:#FEF3C7;color:#92400E;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">⚠️ Review</span>' if has_review else ""
 
         diff = round(pts - expected, 2)
@@ -433,7 +447,7 @@ def build_points_html(totals, month_name):
 
         summary_rows += f'''
         <div class="athlete-row">
-          <div class="athlete-name">{name}{badge}{review_badge}</div>
+          <div class="athlete-name">{name}{badge}{manual_badge}{review_badge}</div>
           <div class="progress-wrap">
             <div class="progress-bar" style="width:{pct:.0f}%;background:{color}"></div>
           </div>
@@ -444,6 +458,16 @@ def build_points_html(totals, month_name):
     # Detail table per athlete — alphabetical
     detail_html = ""
     for name, data in sorted_athletes:
+        if data.get("manual"):
+            detail_html += f'''
+        <div class="athlete-detail">
+          <div class="detail-header">
+            <span class="detail-name">{name} <span style="background:#EFF6FF;color:#1D4ED8;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600">Manual</span></span>
+            <span class="total-pts">{round(data["points"], 2)} pts</span>
+          </div>
+          <p style="color:#6B7280;font-size:13px;padding:8px 0">Points entered manually — no activity breakdown available.</p>
+        </div>'''
+            continue
         has_flags = any(r["flag"] for r in data["activities"] if not r.get("denied"))
         pending_pts = sum(r["points"] for r in data["activities"] if r["review"] and not r.get("denied"))
         confirmed_pts = round(data["points"] - pending_pts, 2)
