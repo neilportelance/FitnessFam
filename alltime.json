@@ -20,12 +20,6 @@
   "Walk / Hike": {
     "distance": [
       {
-        "name": "Connor",
-        "value": 18090.0,
-        "display": "18.1 km (5h 1m)",
-        "month": "2026-05"
-      },
-      {
         "name": "Melanie",
         "value": 11000,
         "display": "11.0 km",
@@ -79,12 +73,6 @@
   },
   "Run": {
     "distance": [
-      {
-        "name": "Connor",
-        "value": 106131.0,
-        "display": "106.1 km (28m)",
-        "month": "2026-05"
-      },
       {
         "name": "Santiago",
         "value": 21505.2,
