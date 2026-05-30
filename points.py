@@ -422,7 +422,7 @@ def build_points_html(totals, month_name):
 
         diff = round(pts - expected, 2)
         if pts >= GOAL:
-            pace_str = "—"
+            pace_str = "DONE 🎉"
             pace_color = "#16A34A"
         elif diff >= 0:
             pace_str = f"+{diff} ahead"
@@ -437,7 +437,7 @@ def build_points_html(totals, month_name):
           <div class="progress-wrap">
             <div class="progress-bar" style="width:{pct:.0f}%;background:{color}"></div>
           </div>
-          <div class="pts-label" style="color:{color}">{pts} / {GOAL}</div>
+          <div class="pts-label" style="color:{color}">{min(pts, GOAL)} / {GOAL}</div>
           <div class="pace-label" style="color:{pace_color}">{pace_str}</div>
         </div>'''
 

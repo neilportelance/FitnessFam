@@ -269,7 +269,7 @@ def build_mobile_html(month_activities, month_name, alltime, broken_records, tot
         pts = round(data["points"], 2)
         diff = round(pts - expected, 2)
         name_style = f'color:#2AB5A8;font-weight:700' if pts >= GOAL else 'color:#FFFFFF;font-weight:600'
-        points_rows += f'<div class="pts-row"><div class="pts-name" style="{name_style}">{name}</div>{bar_html(pts)}<div class="pts-val" style="color:{val_color(pts)}">{pts}</div><div class="pts-pace" style="color:{pace_color(pts,diff)};font-weight:{pace_weight(pts)}">{pace_str(pts,diff)}</div></div>'
+        points_rows += f'<div class="pts-row"><div class="pts-name" style="{name_style}">{name}</div>{bar_html(pts)}<div class="pts-val" style="color:{val_color(pts)}">{min(pts, GOAL)}</div><div class="pts-pace" style="color:{pace_color(pts,diff)};font-weight:{pace_weight(pts)}">{pace_str(pts,diff)}</div></div>'
 
     # ── Leaderboard ───────────────────────────────────────────────────────────
     lb_sections = ""
@@ -490,7 +490,7 @@ def build_mobile_light_html(month_activities, month_name, alltime, broken_record
         diff = round(pts - expected, 2)
         name_style = f'color:#0D9488;font-weight:700' if pts >= GOAL else 'color:#111827;font-weight:600'
         bar = f'<div class="pts-bar-wrap"><div class="bar-done"></div></div>' if pts >= GOAL else f'<div class="pts-bar-wrap"><div class="pts-bar" style="width:{pct:.0f}%;background:{bar_color(pts)}"></div></div>'
-        points_rows += f'<div class="pts-row"><div class="pts-name" style="{name_style}">{name}</div>{bar}<div class="pts-val" style="color:{val_color(pts)}">{pts}</div><div class="pts-pace" style="color:{pace_col(pts,diff)};font-weight:{"700" if pts >= GOAL else "500"}">{pace_display(pts,diff)}</div></div>'
+        points_rows += f'<div class="pts-row"><div class="pts-name" style="{name_style}">{name}</div>{bar}<div class="pts-val" style="color:{val_color(pts)}">{min(pts, GOAL)}</div><div class="pts-pace" style="color:{pace_col(pts,diff)};font-weight:{"700" if pts >= GOAL else "500"}">{pace_display(pts,diff)}</div></div>'
 
     # Leaderboard
     lb_sections = ""
