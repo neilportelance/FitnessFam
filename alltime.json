@@ -32,9 +32,9 @@
         "month": "2026-05"
       },
       {
-        "name": "Allison",
-        "value": 10792.8,
-        "display": "10.8 km (2h 56m)",
+        "name": "Neil",
+        "value": 8544.9,
+        "display": "8.5 km (1h 46m)",
         "month": "2026-05"
       }
     ]
@@ -65,8 +65,8 @@
       },
       {
         "name": "Scott",
-        "value": 9,
-        "display": "9 sessions",
+        "value": 8,
+        "display": "8 sessions",
         "month": "2026-05"
       },
       {
@@ -80,6 +80,12 @@
   "Run": {
     "distance": [
       {
+        "name": "Connor",
+        "value": 106131.0,
+        "display": "106.1 km (28m)",
+        "month": "2026-05"
+      },
+      {
         "name": "Santiago",
         "value": 21505.2,
         "display": "21.5 km (2h 5m)",
@@ -89,12 +95,6 @@
         "name": "Hernando",
         "value": 21347.9,
         "display": "21.3 km (2h 8m)",
-        "month": "2026-05"
-      },
-      {
-        "name": "Lily",
-        "value": 21190.2,
-        "display": "21.2 km (2h 1m)",
         "month": "2026-05"
       }
     ],
@@ -112,9 +112,9 @@
         "month": "2026-05"
       },
       {
-        "name": "Santiago",
-        "value": 283,
-        "display": "4:42/km (5.0 km)",
+        "name": "Melanie",
+        "value": 307,
+        "display": "5:07/km (10.3 km)",
         "month": "2026-05"
       }
     ]
@@ -325,16 +325,6 @@
         "name": "David",
         "value": 151,
         "display": "2:31/km (15.5 km)",
-        "month": "2026-05"
-      }
-    ]
-  },
-  "Team Sports / Medium Intensity": {
-    "sessions": [
-      {
-        "name": "Connor",
-        "value": 1,
-        "display": "1 session",
         "month": "2026-05"
       }
     ]

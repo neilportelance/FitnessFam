@@ -18,6 +18,7 @@
     {"id": 16, "firstname": "Greg", "lastname": "M.", "participating": false},
     {"id": 17, "firstname": "Matt", "lastname": "M.", "participating": true},
     {"id": 18, "firstname": "David", "lastname": "L.", "participating": true},
-    {"id": 19, "firstname": "Sasha", "lastname": "K.", "participating": true}
+    {"id": 19, "firstname": "Sasha", "lastname": "K.", "participating": true},
+    {"id": 20, "firstname": "Emilie", "lastname": "D.", "participating": false}
   ]
 }
