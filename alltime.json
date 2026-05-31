@@ -338,5 +338,23 @@
         "month": "2026-05"
       }
     ]
+  },
+  "Mountain Bike": {
+    "distance": [
+      {
+        "name": "Amy",
+        "value": 5459.9,
+        "display": "5.5 km (49m)",
+        "month": "2026-05"
+      }
+    ],
+    "pace": [
+      {
+        "name": "Amy",
+        "value": 546,
+        "display": "9:06/km (5.5 km)",
+        "month": "2026-05"
+      }
+    ]
   }
 }
