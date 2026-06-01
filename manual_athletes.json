@@ -1,7 +1,6 @@
 [
-  {"name": "Kelsey", "points": 80.0},
-  {"name": "Megan", "points": 80.0},
-  {"name": "Caroline", "points": 13.63},
-  {"name": "Gill", "points": 78.01},
-  {"name": "Rae", "points": 78.17}
+  {"name": "Kelsey", "points": 0},
+  {"name": "Caroline", "points": 0},
+  {"name": "Gill", "points": 0},
+  {"name": "Rae", "points": 0}
 ]

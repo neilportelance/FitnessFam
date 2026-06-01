@@ -1,6 +1,6 @@
 import json
 
-acts = json.load(open('cache2-addmissing.json'))
+acts = json.load(open('cache2.json'))
 anchor_count = json.load(open('anchor2.json'))['anchor_count']
 
 with open('cache_dump2.txt', 'w') as f:

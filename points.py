@@ -397,6 +397,16 @@ def calculate_totals(month_activities):
         }
         totals[name]["activities"].append(denied_result)
 
+    # Ensure all participating members appear even with 0 pts
+    members_file = Path("members.json")
+    if members_file.exists():
+        members_data = json.load(open(members_file))
+        for m in members_data["members"]:
+            if m["participating"]:
+                name = m["firstname"]
+                if name not in totals:
+                    totals[name] = {"points": 0.0, "activities": []}
+
     # Inject manual athletes from manual_athletes.json
     manual_file = Path("manual_athletes.json")
     if manual_file.exists():
