@@ -1,0 +1,61 @@
+name: Generate Leaderboard
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Write config.json from secrets
+        run: |
+          cat > config.json << CONFIGEOF
+          {
+            "client_id": ${{ secrets.STRAVA_CLIENT_ID }},
+            "client_secret": "${{ secrets.STRAVA_CLIENT_SECRET }}",
+            "refresh_token": "${{ secrets.STRAVA_REFRESH_TOKEN }}",
+            "club_id": ${{ secrets.STRAVA_CLUB_ID }}
+          }
+          CONFIGEOF
+
+      - name: Run leaderboard
+        run: python run.py
+
+      - name: Save updated refresh token
+        continue-on-error: true
+        run: |
+          NEW_TOKEN=$(python -c "import json; print(json.load(open('config.json'))['refresh_token'])")
+          gh secret set STRAVA_REFRESH_TOKEN --body "$NEW_TOKEN" --repo neilportelance/FitnessFam
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Commit updated data files
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add cache2.json anchor2.json alltime.json || true
+          git diff --staged --quiet || git commit -m "Update leaderboard data [skip ci]"
+          git push || true
+
+      - name: Deploy reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+          keep_files: false

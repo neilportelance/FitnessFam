@@ -58,6 +58,17 @@ def get_personal_access_token(refresh_token, config):
     data = res.json()
     return data["access_token"], data["refresh_token"]
 
+def get_personal_access_token(refresh_token, config):
+    """Get a fresh access token using personal refresh token."""
+    res = requests.post("https://www.strava.com/oauth/token", data={
+        "client_id": config["client_id"],
+        "client_secret": config["client_secret"],
+        "refresh_token": refresh_token,
+        "grant_type": "refresh_token"
+    })
+    data = res.json()
+    return data["access_token"], data["refresh_token"]
+
 def fetch_personal_activities(access_token, after_timestamp=None):
     """Fetch all activities from personal feed."""
     activities = []
@@ -113,26 +124,38 @@ def save_member_token(firstname, lastname, refresh_token):
     print(f"✓ Token saved for {key}")
 
 def main():
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 3:
         print("Usage: python fetch_member.py <auth_code> <firstname> <lastname>")
-        print("Example: python fetch_member.py abc123 Neil P.")
+        print("       python fetch_member.py --refresh <firstname> <lastname>")
         sys.exit(1)
 
-    code = sys.argv[1]
+    mode = sys.argv[1]
     firstname = sys.argv[2]
-    lastname = sys.argv[3]
+    lastname = sys.argv[3] if len(sys.argv) > 3 else ""
+    member_key = f"{firstname} {lastname}".strip()
 
     config = load_config()
 
-    print(f"\n🔑 Exchanging auth code for {firstname} {lastname}...")
-    token_data = exchange_code(code, config)
-    refresh_token = token_data["refresh_token"]
-    access_token = token_data["access_token"]
-
-    athlete = token_data.get("athlete", {})
-    print(f"✓ Authorized as: {athlete.get('firstname')} {athlete.get('lastname')}")
-
-    save_member_token(firstname, lastname, refresh_token)
+    if mode == "--refresh":
+        if not TOKENS_FILE.exists():
+            print(f"❌ No member_tokens.json found")
+            sys.exit(1)
+        tokens = json.load(open(TOKENS_FILE))
+        if member_key not in tokens:
+            print(f"❌ No token found for {member_key}")
+            sys.exit(1)
+        print(f"\n🔄 Refreshing token for {member_key}...")
+        access_token, new_refresh = get_personal_access_token(tokens[member_key], config)
+        save_member_token(firstname, lastname, new_refresh)
+    else:
+        code = mode
+        print(f"\n🔑 Exchanging auth code for {member_key}...")
+        token_data = exchange_code(code, config)
+        new_refresh = token_data["refresh_token"]
+        access_token = token_data["access_token"]
+        athlete = token_data.get("athlete", {})
+        print(f"✓ Authorized as: {athlete.get('firstname')} {athlete.get('lastname')}")
+        save_member_token(firstname, lastname, new_refresh)
 
     print(f"\n📥 Fetching personal activities for current month...")
     # Only fetch activities from the 1st of the current month
@@ -161,6 +184,10 @@ def main():
         json.dump(merged, f)
 
     print(f"✓ Added {len(new_entries)} new activities to cache ({len(merged)} total)")
+
+    tokens = json.load(open(TOKENS_FILE))
+    print(f"\n⚠️  Update the MEMBER_TOKENS GitHub secret with this value:")
+    print(json.dumps(tokens, indent=2))
     print(f"\n✅ Done! Run python run.py to regenerate reports.")
 
 if __name__ == "__main__":
