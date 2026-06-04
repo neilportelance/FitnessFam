@@ -336,6 +336,12 @@
         "value": 1,
         "display": "1 session",
         "month": "2026-05"
+      },
+      {
+        "name": "Matt",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-06"
       }
     ]
   },
@@ -343,17 +349,17 @@
     "distance": [
       {
         "name": "Amy",
-        "value": 5459.9,
-        "display": "5.5 km (49m)",
-        "month": "2026-05"
+        "value": 7353.2,
+        "display": "7.4 km (51m)",
+        "month": "2026-06"
       }
     ],
     "pace": [
       {
         "name": "Amy",
-        "value": 546,
-        "display": "9:06/km (5.5 km)",
-        "month": "2026-05"
+        "value": 423,
+        "display": "7:03/km (7.4 km)",
+        "month": "2026-06"
       }
     ]
   }
