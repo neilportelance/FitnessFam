@@ -333,9 +333,9 @@
     "sessions": [
       {
         "name": "Connor",
-        "value": 1,
-        "display": "1 session",
-        "month": "2026-05"
+        "value": 2,
+        "display": "2 sessions",
+        "month": "2026-06"
       },
       {
         "name": "Matt",
