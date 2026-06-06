@@ -246,7 +246,12 @@ def calculate_activity(a):
 
     # For time-based activities use elapsed_time if moving_time is suspiciously low
     # (e.g. Pickleball/Gym where GPS doesn't track movement)
-    if label in TIME_RATES and elapsed_time_s > moving_time_s * 2:
+    # For team sports always use elapsed_time as moving_time is unreliable
+    ALWAYS_USE_ELAPSED = {"Team Sports / Medium Intensity", "Pickleball / Medium Intensity",
+                          "Yoga / Low Intensity", "Gym / Medium Intensity"}
+    if label in ALWAYS_USE_ELAPSED:
+        moving_time_s = elapsed_time_s if elapsed_time_s > 0 else moving_time_s
+    elif label in TIME_RATES and elapsed_time_s > moving_time_s * 2:
         moving_time_s = elapsed_time_s
 
     full_name = f"{name} {a['athlete'].get('lastname', '')}"
