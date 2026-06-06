@@ -35,6 +35,21 @@ jobs:
           CONFIGEOF
           echo '${{ secrets.MEMBER_TOKENS }}' > member_tokens.json
 
+      - name: Fetch personal member feeds
+        run: |
+          python -c "
+import json, subprocess, os
+tokens_file = 'member_tokens.json'
+if os.path.exists(tokens_file):
+    tokens = json.load(open(tokens_file))
+    for key in tokens:
+        parts = key.split(' ', 1)
+        firstname = parts[0]
+        lastname = parts[1] if len(parts) > 1 else ''
+        print(f'Fetching {key}...')
+        subprocess.run(['python', 'fetch_member.py', '--refresh', firstname, lastname])
+"
+
       - name: Run leaderboard
         run: python run.py
 
