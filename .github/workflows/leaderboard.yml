@@ -47,7 +47,7 @@ jobs:
           NEW_TOKEN=$(python -c "import json; print(json.load(open('config.json'))['refresh_token'])")
           gh secret set STRAVA_REFRESH_TOKEN --body "$NEW_TOKEN" --repo neilportelance/FitnessFam
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       - name: Commit updated data files
         run: |
