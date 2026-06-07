@@ -290,6 +290,12 @@
   "Bike": {
     "distance": [
       {
+        "name": "Ruth",
+        "value": 50217.4,
+        "display": "50.2 km (2h 42m)",
+        "month": "2026-06"
+      },
+      {
         "name": "David",
         "value": 33440.6,
         "display": "33.4 km (1h 38m)",
@@ -299,12 +305,6 @@
         "name": "Amy",
         "value": 32950.3,
         "display": "33.0 km (1h 3m)",
-        "month": "2026-05"
-      },
-      {
-        "name": "Ruth",
-        "value": 21721.8,
-        "display": "21.7 km (1h 26m)",
         "month": "2026-05"
       }
     ],
