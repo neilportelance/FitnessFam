@@ -20,6 +20,12 @@
   "Walk / Hike": {
     "distance": [
       {
+        "name": "Kyle",
+        "value": 36489.8,
+        "display": "36.5 km (1h 29m)",
+        "month": "2026-06"
+      },
+      {
         "name": "Connor",
         "value": 18090.0,
         "display": "18.1 km (5h 1m)",
@@ -29,12 +35,6 @@
         "name": "Melanie",
         "value": 11000,
         "display": "11.0 km",
-        "month": "2026-05"
-      },
-      {
-        "name": "Allison",
-        "value": 10792.8,
-        "display": "10.8 km (2h 56m)",
         "month": "2026-05"
       }
     ]
@@ -170,13 +170,13 @@
         "month": "2026-05"
       },
       {
-        "name": "Sasha",
-        "value": 1,
-        "display": "1 session",
-        "month": "2026-05"
+        "name": "Melanie",
+        "value": 2,
+        "display": "2 sessions",
+        "month": "2026-06"
       },
       {
-        "name": "Jennifer",
+        "name": "Sasha",
         "value": 1,
         "display": "1 session",
         "month": "2026-05"
@@ -296,15 +296,15 @@
         "month": "2026-06"
       },
       {
+        "name": "Amy",
+        "value": 41680.5,
+        "display": "41.7 km (1h 51m)",
+        "month": "2026-06"
+      },
+      {
         "name": "David",
         "value": 33440.6,
         "display": "33.4 km (1h 38m)",
-        "month": "2026-05"
-      },
-      {
-        "name": "Amy",
-        "value": 32950.3,
-        "display": "33.0 km (1h 3m)",
         "month": "2026-05"
       }
     ],
