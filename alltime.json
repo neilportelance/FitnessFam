@@ -164,22 +164,22 @@
   "Crossfit / HIIT / High Intensity": {
     "sessions": [
       {
+        "name": "Melanie",
+        "value": 3,
+        "display": "3 sessions",
+        "month": "2026-06"
+      },
+      {
         "name": "Myles",
         "value": 2,
         "display": "2 sessions",
         "month": "2026-05"
       },
       {
-        "name": "Melanie",
+        "name": "Jennifer",
         "value": 2,
         "display": "2 sessions",
         "month": "2026-06"
-      },
-      {
-        "name": "Sasha",
-        "value": 1,
-        "display": "1 session",
-        "month": "2026-05"
       }
     ]
   },
