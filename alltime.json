@@ -362,5 +362,15 @@
         "month": "2026-06"
       }
     ]
+  },
+  "Tennis / Squash / High Intensity": {
+    "sessions": [
+      {
+        "name": "David",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-06"
+      }
+    ]
   }
 }
