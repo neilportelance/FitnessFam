@@ -296,16 +296,16 @@
         "month": "2026-06"
       },
       {
+        "name": "David",
+        "value": 43752.6,
+        "display": "43.8 km (1h 52m)",
+        "month": "2026-06"
+      },
+      {
         "name": "Amy",
         "value": 41680.5,
         "display": "41.7 km (1h 51m)",
         "month": "2026-06"
-      },
-      {
-        "name": "David",
-        "value": 33440.6,
-        "display": "33.4 km (1h 38m)",
-        "month": "2026-05"
       }
     ],
     "pace": [
