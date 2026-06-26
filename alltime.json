@@ -58,13 +58,13 @@
   "Gym / Medium Intensity": {
     "sessions": [
       {
-        "name": "Amy",
-        "value": 9,
-        "display": "9 sessions",
-        "month": "2026-05"
+        "name": "Scott",
+        "value": 10,
+        "display": "10 sessions",
+        "month": "2026-06"
       },
       {
-        "name": "Scott",
+        "name": "Amy",
         "value": 9,
         "display": "9 sessions",
         "month": "2026-05"
@@ -316,15 +316,15 @@
         "month": "2026-05"
       },
       {
+        "name": "Kyle",
+        "value": 143,
+        "display": "2:22/km (19.0 km)",
+        "month": "2026-06"
+      },
+      {
         "name": "Ruth",
         "value": 150,
         "display": "2:30/km (13.8 km)",
-        "month": "2026-05"
-      },
-      {
-        "name": "David",
-        "value": 151,
-        "display": "2:31/km (15.5 km)",
         "month": "2026-05"
       }
     ]
@@ -333,8 +333,8 @@
     "sessions": [
       {
         "name": "Connor",
-        "value": 3,
-        "display": "3 sessions",
+        "value": 4,
+        "display": "4 sessions",
         "month": "2026-06"
       },
       {
