@@ -52,6 +52,12 @@
         "value": 1,
         "display": "1 session",
         "month": "2026-05"
+      },
+      {
+        "name": "Neil",
+        "value": 1,
+        "display": "1 session",
+        "month": "2026-06"
       }
     ]
   },
